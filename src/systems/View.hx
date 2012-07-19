@@ -17,7 +17,7 @@ class View extends AbstractSystem{
 
     }
 
-    public function update() : Void
+    override public function update(dt : Float) : Void
     {
         _renderer.clear();
         for (entity in _entities){

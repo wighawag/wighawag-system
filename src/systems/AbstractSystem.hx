@@ -32,6 +32,10 @@ class AbstractSystem {
 
     }
 
+    public function update(dt : Float) : Void{
+        throw "need override"; // TODO better than that ?
+    }
+
     private function onEntityAdded(entity : Entity) : Void{
         if (hasRequiredComponents(entity)){
             _entities.push(entity);
@@ -63,13 +67,4 @@ class AbstractSystem {
         return true;
     }
 
-    /*
-    private function registered(entity : Entity) : Void{
-
-    }
-
-    private function unregistered(entity : Entity) : Void{
-
-    }
-    */
 }

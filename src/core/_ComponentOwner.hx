@@ -2,7 +2,7 @@ package core;
 import com.fermmtools.utils.ObjectHash;
 
 // TODO use this as Entity base class (not supported by Haxe yet)
-class ComponentOwner<ComponentSuperType> {
+class _ComponentOwner<ComponentSuperType> {
 
     private var _components : ObjectHash<Dynamic, Dynamic>;
 

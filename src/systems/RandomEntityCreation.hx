@@ -18,7 +18,7 @@ class RandomEntityCreation extends AbstractSystem {
     }
 
     private var n : Int;
-    public function update(dt : Float) : Void
+    override public function update(dt : Float) : Void
     {
         if (n < 1000){
             n ++;
