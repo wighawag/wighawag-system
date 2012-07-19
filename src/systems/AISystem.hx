@@ -11,7 +11,7 @@ class AISystem extends AbstractSystem{
 
     override public function update(dt : Float) : Void{
          for (entity in _entities){
-             entity.get(AIComponent).update();
+             entity.get(AIComponent).update(dt);
          }
     }
 

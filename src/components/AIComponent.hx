@@ -7,7 +7,7 @@ class AIComponent extends EntityComponent {
         super([PositionComponent]);
     }
 
-    public function update() : Void{
+    public function update(dt : Float) : Void{
         if (!enabled){
             return;
         }

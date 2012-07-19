@@ -23,7 +23,7 @@ class Entity{
     }
 
     public function add<T : EntityComponent>(component :T) {
-        _components.set(Type.getClass(component), component);
+        _components.set(component.accessClass, component);
         component.owner = this;
     }
 }

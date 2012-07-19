@@ -9,10 +9,27 @@ class EntityComponent {
 
     private var enabled : Bool;
 
-    public function new(?requiredComponents : Array<Class<Dynamic>>){
+    public var accessClass(default, null) : Class<Dynamic>;
+
+    public function new(?requiredComponents : Array<Class<Dynamic>>, ?accessClass : Class<Dynamic>){
         if (requiredComponents != null){
             this.requiredComponents = requiredComponents.copy();
         }
+        if (accessClass == null){
+            this.accessClass = Type.getClass(this);
+        }
+        else
+        {
+            if (Std.is(this, accessClass)){
+                this.accessClass = accessClass;
+            }
+            else
+            {
+                trace("trying to set accessClass to a Class (" + accessClass + ") that is not the current instance's base class : " + Type.getClass(this));
+            }
+        }
+
+
     }
 
     private function setOwner(entity : Entity) : Entity{
