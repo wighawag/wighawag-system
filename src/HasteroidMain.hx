@@ -1,5 +1,6 @@
 package ;
 
+import systems.AISystem;
 import systems.RandomEntityCreation;
 import core.Model;
 import renderer.Renderer;
@@ -15,8 +16,11 @@ import nme.events.Event;
 class HasteroidMain extends Sprite{
 
     private var model : Model;
+
     private var view : View;
     private var entityCreation : RandomEntityCreation;
+    private var aiSystem : AISystem;
+
     private var renderer : Renderer;
 
     private var lastTime : Float;
@@ -37,9 +41,11 @@ class HasteroidMain extends Sprite{
         removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
         model = new Model();
+
         renderer = new Renderer(this);
         view = new View(model, renderer);
         entityCreation = new RandomEntityCreation(model, stage.stageWidth, stage.stageHeight);
+        aiSystem = new AISystem(model);
 
         addEventListener(Event.ENTER_FRAME, onEnterFrame);
         #if flash
@@ -53,6 +59,7 @@ class HasteroidMain extends Sprite{
         var now : Float = Timer.stamp();
         var dt = now - lastTime;
         entityCreation.update(dt);
+        aiSystem.update();
         #if flash
             stage.invalidate();
         #else

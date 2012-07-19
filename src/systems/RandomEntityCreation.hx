@@ -1,4 +1,5 @@
 package systems;
+import components.AIComponent;
 import core.Model;
 import core.Entity;
 import components.PositionComponent;
@@ -47,6 +48,7 @@ class RandomEntityCreation extends AbstractSystem {
 
         entity.add(new GenericViewComponent(bitmapData));
         entity.add(new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)));
+        entity.add(new AIComponent());
         return entity;
     }
 
