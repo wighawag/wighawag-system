@@ -9,10 +9,18 @@ class AbstractSystem {
     private var _entities : Array<Entity>;
     private var _entityRegistrar : ObjectHash<Entity, Bool>;
     private var _model : Model;
+    private var _requiredComponents : Array<Class<Dynamic>>;
 
-    public function new(model : Model) {
+    public function new(model : Model, ?requiredComponents : Array<Class<Dynamic>>) {
         _entities = new Array();
         _entityRegistrar = new ObjectHash();
+
+        if (requiredComponents != null){
+            _requiredComponents = requiredComponents.copy();
+        }
+        else{
+            _requiredComponents = new Array();
+        }
 
         _model = model;
         _model.onEntityAdded.bind(onEntityAdded);
@@ -47,7 +55,12 @@ class AbstractSystem {
     }
 
     private function hasRequiredComponents(entity : Entity) : Bool{
-        return false; // override to allow entity to be handle by the system
+        for (requiredComponent in _requiredComponents){
+            if (entity.get(requiredComponent) == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     /*

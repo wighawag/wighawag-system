@@ -46,13 +46,10 @@ class RandomEntityCreation extends AbstractSystem {
             //bitmapData.fillRect(new Rectangle(0,0,32,32),0xFF0000);
         }
 
-        entity.add(new GenericViewComponent(bitmapData));
         entity.add(new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)));
+        entity.add(new GenericViewComponent(bitmapData));
         entity.add(new AIComponent());
         return entity;
     }
 
-    override private function hasRequiredComponents(entity : Entity) : Bool{
-        return entity.get(PositionComponent) != null;
-    }
 }

@@ -1,15 +1,21 @@
 package components;
 
-// TODO how to deal with inter component dependencies ?
-// TODO need to provide the component an owner
-// TODO base class or interface required for Component (how to force this into Entity ?)
+import core.Entity;
+class AIComponent extends EntityComponent {
 
-class AIComponent {
     public function new() {
+        super([PositionComponent]);
     }
 
     public function update() : Void{
-
+        if (!enabled){
+            return;
+        }
+        var positionComponent = owner.get(PositionComponent);
+        positionComponent.x += 10;
+        if (positionComponent.x > 200){
+            positionComponent.x = 0;
+        }
     }
 
 }
