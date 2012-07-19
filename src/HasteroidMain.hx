@@ -1,8 +1,9 @@
 package ;
 
-import hasteroid.Model;
-import hasteroid.Renderer;
-import hasteroid.View;
+import systems.RandomEntityCreation;
+import core.Model;
+import renderer.Renderer;
+import systems.View;
 import nme.display.Shape;
 import nme.display.Bitmap;
 import nme.display.BitmapData;
@@ -15,6 +16,7 @@ class HasteroidMain extends Sprite{
 
     private var model : Model;
     private var view : View;
+    private var entityCreation : RandomEntityCreation;
     private var renderer : Renderer;
 
     private var lastTime : Float;
@@ -34,9 +36,10 @@ class HasteroidMain extends Sprite{
     private function onAddedToStage(event : Event) : Void{
         removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
-        model = new Model(stage.stageWidth, stage.stageHeight);
+        model = new Model();
         renderer = new Renderer(this);
         view = new View(model, renderer);
+        entityCreation = new RandomEntityCreation(model, stage.stageWidth, stage.stageHeight);
 
         addEventListener(Event.ENTER_FRAME, onEnterFrame);
         #if flash
@@ -49,7 +52,7 @@ class HasteroidMain extends Sprite{
 
         var now : Float = Timer.stamp();
         var dt = now - lastTime;
-        model.update(dt);
+        entityCreation.update(dt);
         #if flash
             stage.invalidate();
         #else

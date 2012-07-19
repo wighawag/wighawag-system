@@ -1,4 +1,5 @@
-package hasteroid;
+package core;
+
 import com.fermmtools.utils.ObjectHash;
 class Entity {
 
@@ -15,4 +16,5 @@ class Entity {
     public function add<T>(component :T) {
         _components.set(Type.getClass(component), component);
     }
+
 }

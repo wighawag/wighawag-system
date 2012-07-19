@@ -1,4 +1,4 @@
-package hasteroid;
+package renderer;
 
 import nme.geom.Point;
 import nme.geom.Rectangle;

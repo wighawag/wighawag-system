@@ -1,6 +1,6 @@
 package components;
 import nme.display.BitmapData;
-class GraphicsComponent {
+class GenericViewComponent{
 
     public var bitmapData : BitmapData;
     public function new(bitmapData : BitmapData) {
