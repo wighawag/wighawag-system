@@ -1,5 +1,6 @@
 package components;
 
+import haxe.macro.Type;
 import haxe.macro.Expr;
 
 class ComponentInterdependencyMacro {
@@ -8,7 +9,36 @@ class ComponentInterdependencyMacro {
         var context = haxe.macro.Context;
         var pos = context.currentPos();
 
+
+        var localClass = context.getLocalClass().get();
+        var accessClass : String = localClass.name;
+        var superClass : ClassType;
+        var superClassRef = localClass.superClass;
+        if (superClassRef != null){
+            superClass = superClassRef.t.get();
+            if(superClass.meta.has("accessClass")){
+
+                accessClass = superClass.name;
+                trace("ACCESS CLASS : " + accessClass);
+            }
+
+        }
+
+        for (intfaceRef in localClass.interfaces){
+            var intface  = intfaceRef.t.get();
+            if (intface.meta.has("accessClass")){
+                accessClass = intface.name;
+
+                trace(intface.module);
+                trace("ACCESS CLASS : " + accessClass);
+                break;
+            }
+        }
+
+
+
         var constructor : Field;
+        var constructorPosition : Position;
         var constructorExprs : Array<Expr>;
         var requiredComponentField : Field;
 
@@ -24,6 +54,7 @@ class ComponentInterdependencyMacro {
             }
             if (field.name == "new"){
                 constructor = field;
+                constructorPosition = constructor.pos;
                 switch(field.kind){
                     case FieldType.FFun( func ):
                         switch (func.expr.expr){
@@ -39,6 +70,10 @@ class ComponentInterdependencyMacro {
                 trace(" - " + field.name);
             }
 
+        }
+
+        if (constructor == null){
+            return null;
         }
 
 
@@ -60,6 +95,7 @@ class ComponentInterdependencyMacro {
             }
         }
 
+        var attachExpr : Expr;
         // The check for missing components should not be necessary anymore as Entity does the checking
         if (requiredFields.length > 0) {
             var exprString = "{";
@@ -79,20 +115,52 @@ class ComponentInterdependencyMacro {
             exprString += "  return null;\n";
             exprString += "}\n";
 
-            exprString += "return accessClass;\n";
+            exprString += "owner = entity;";
+            exprString += "return " + accessClass + ";\n";
 
             exprString += "}\n";
 
-            var expr =  context.parse(exprString, constructor.pos);
-            var func = {
-                        ret : TPath({ sub:null, name:"Class", pack:[], params:[
-                            TPType(TPath({ sub:null, name:"Dynamic", pack:[], params:[] }))
-                            ]}),
-                        params : [],
-                        expr : expr,
-                        args : [{value : null, type : TPath({ sub:null, name:"Entity", pack:[], params:[] }), opt : false, name :"entity"}] };
-            fields.push({ name : "attach", doc : null, meta : null, access : [AOverride], kind : FFun(func), pos : pos });
+            attachExpr =  context.parse(exprString, constructorPosition);
         }
+        else
+        {
+            trace(accessClass);
+            attachExpr = context.parse("{owner = entity; return " + accessClass + ";}", constructorPosition);
+        }
+
+        var attachFunction = {
+        ret : TPath({ sub:null, name:"Class", pack:[], params:[
+        TPType(TPath({ sub:null, name:"Dynamic", pack:[], params:[] }))
+        ]}),
+        params : [],
+        expr : attachExpr,
+        args : [{value : null, type : TPath({ sub:null, name:"Entity", pack:["core"], params:[] }), opt : false, name :"entity"}] };
+
+        fields.push({ name : "attach", doc : null, meta : null, access : [APublic], kind : FFun(attachFunction), pos : pos });
+
+
+
+        var detachFunction = {
+        ret : TPath({ sub:null, name:"Void", pack:[], params:[]}),
+        params : [],
+        expr : context.parse("{owner = null;}", constructorPosition),
+        args : [] };
+
+        fields.push({ name : "detach", doc : null, meta : null, access : [APublic], kind : FFun(detachFunction), pos : pos });
+
+
+        var ownerProp = FProp("default", "null", TPath({ sub:null, name:"Entity", pack:["core"], params:[]}));
+        fields.push({ name : "owner", doc : null, meta : null, access : [APublic], kind : ownerProp, pos : pos });
+
+
+        //Array<Class<Dynamic>>
+
+        var requiredComponentProp = FProp("default", "null", TPath({ sub:null, name:"Array", pack:[], params:[
+            TPType(TPath({ sub:null, name:"Class", pack:[], params:[
+                TPType(TPath({ sub:null, name:"Dynamic", pack:[], params:[] }))
+            ]}))
+        ]}));
+        fields.push({ name : "requiredComponents", doc : null, meta : null, access : [APublic], kind : requiredComponentProp, pos : pos });
 
         return fields;
     }

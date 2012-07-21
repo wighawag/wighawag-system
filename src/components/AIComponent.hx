@@ -1,13 +1,11 @@
 package components;
 
-import core.Entity;
-class AIComponent extends EntityComponent {
+class AIComponent implements EntityComponent {
 
     @owner
     private var positionComponent : PositionComponent;
 
     public function new() {
-        super();
     }
 
     public function update(dt : Float) : Void{
