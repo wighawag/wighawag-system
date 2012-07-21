@@ -44,12 +44,12 @@ class RandomEntityCreation extends AbstractSystem {
 
         if (bitmapData == null){
             bitmapData = new BitmapData(32,32, false, 0xFF0000);
-            //bitmapData.fillRect(new Rectangle(0,0,32,32),0xFF0000);
         }
-
-        entity.add(new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)));
-        entity.add(new AnotherViewComponent(bitmapData));
-        entity.add(new AIComponent());
+        entity.initialise([
+            new AIComponent(),
+            new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)),
+            new AnotherViewComponent(bitmapData)
+        ]);
         return entity;
     }
 

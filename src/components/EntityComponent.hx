@@ -1,20 +1,18 @@
 package components;
 
+import haxe.rtti.Meta;
 import core.Entity;
 
+@:autoBuild(components.ComponentInterdependencyMacro.build())
 class EntityComponent {
 
-    public var owner(default, setOwner) : Entity;
-    private var requiredComponents : Array<Class<Dynamic>>;
+    public var owner(default, null) : Entity;
+    public var requiredComponents(default, null) : Array<Class<Dynamic>>;
 
-    private var enabled : Bool;
+    private var accessClass(default, null) : Class<Dynamic>;
 
-    public var accessClass(default, null) : Class<Dynamic>;
+    public function new(?accessClass : Class<Dynamic>){
 
-    public function new(?requiredComponents : Array<Class<Dynamic>>, ?accessClass : Class<Dynamic>){
-        if (requiredComponents != null){
-            this.requiredComponents = requiredComponents.copy();
-        }
         if (accessClass == null){
             this.accessClass = Type.getClass(this);
         }
@@ -32,27 +30,29 @@ class EntityComponent {
 
     }
 
-    private function setOwner(entity : Entity) : Entity{
-        owner = entity;
+    public function detach() : Void{
+        owner = null;
+    }
 
-        enabled = true;
-
+    public function attach(entity : Entity) : Class<Dynamic>{
         if (requiredComponents != null){
             var missingComponents : Array<Class<Dynamic>> = new Array();
             for (requiredComponent in requiredComponents){
-                if (entity.get(requiredComponent) == null){
+                var component = entity.get(requiredComponent);   // TODO set the fields (@owner)
+                if (component == null){
                     missingComponents.push(requiredComponent);
                 }
             }
 
             if (missingComponents.length >0)
             {
-                trace("disabled as the owner does not have these required components " + missingComponents);
-                enabled = false;
+                trace("" + Type.getClass(this) + " disabled as the owner does not have these required components " + missingComponents);
+                return null;
             }
         }
 
-        return owner;
+        owner = entity;
+        return accessClass;
     }
 
 }

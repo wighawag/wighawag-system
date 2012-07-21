@@ -4,15 +4,18 @@ import renderer.Renderer;
 import nme.display.BitmapData;
 class GenericViewComponent extends ViewComponent{
 
+    @owner
+    private var positionComponent : PositionComponent;
+
     public var bitmapData : BitmapData;
+
     public function new(bitmapData : BitmapData) {
-        super([PositionComponent]);
+        super();
         this.bitmapData = bitmapData;
     }
 
     override public function draw(renderer:Renderer):Void {
-        var positComponent : PositionComponent = owner.get(PositionComponent);
-        renderer.draw(bitmapData, Std.int(positComponent.x), Std.int(positComponent.y));
+        renderer.draw(bitmapData, Std.int(positionComponent.x), Std.int(positionComponent.y));
     }
 
 }
