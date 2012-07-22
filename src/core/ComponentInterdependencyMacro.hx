@@ -17,23 +17,33 @@ class ComponentInterdependencyMacro {
 
         var localClass = context.getLocalClass().get();
         var accessClass : String = localClass.name;
+
         var superClass : ClassType;
+        // superClass should never be of type EntityComponent
+        // but it can be anything else to provide common stuff for Components
+
         var superClassRef = localClass.superClass;
         if (superClassRef != null){
             superClass = superClassRef.t.get();
             if(superClass.meta.has("accessClass")){
 
-                accessClass = superClass.name;
-                trace("ACCESS CLASS : " + accessClass);
+                trace(" Components should not extends another Components, if they need common stuff they can extends Class which are not themselves Components");
+                return null;
             }
 
         }
 
+
         for (intfaceRef in localClass.interfaces){
             var intface  = intfaceRef.t.get();
+            var accessClassFound = false;
             if (intface.meta.has("accessClass")){
+                if (accessClassFound){
+                    context.error("Cannot have multiple interface as accessClass", pos);
+                    return null;
+                }
                 accessClass = intface.name;
-
+                accessClassFound = true;
                 trace(intface.module);
                 trace("ACCESS CLASS : " + accessClass);
                 break;
