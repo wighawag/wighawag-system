@@ -3,6 +3,11 @@ package core;
 import haxe.macro.Type;
 import haxe.macro.Expr;
 
+typedef ComponentField = {
+    var field : Field;
+    var typeName : String;
+}
+
 class ComponentInterdependencyMacro {
     @:macro public static function build() : Array<Field> {
 
@@ -42,7 +47,7 @@ class ComponentInterdependencyMacro {
         var constructorExprs : Array<Expr>;
         var requiredComponentField : Field;
 
-        var requiredFields : Array<{field : Field, typeName : String}> = new Array();
+        var requiredFields : Array<ComponentField> = new Array();
 
 
         var fields = context.getBuildFields();
@@ -76,24 +81,7 @@ class ComponentInterdependencyMacro {
             return null;
         }
 
-
-        for (requiredField in requiredFields){
-            switch(requiredField.field.kind){
-                case FieldType.FVar( complexType, expr ):
-                    switch (complexType){
-                        case TPath(typePath): requiredField.typeName = typePath.name;
-                        default : trace("not a TypePath");
-                    }
-                    addRequiredComponents(context, constructor, constructorExprs);
-                case FieldType.FProp( get, set, complexType, expr ):
-                    switch (complexType){
-                        case TPath(typePath): requiredField.typeName = typePath.name;
-                        default : trace("not a TypePath");
-                    }
-                    addRequiredComponents(context, constructor, constructorExprs);
-                case FieldType.FFun( func ): trace("func cannot be components");
-            }
-        }
+        addRequiredComponents(context, constructor, constructorExprs, requiredFields);
 
         var attachExpr : Expr;
         // The check for missing components should not be necessary anymore as Entity does the checking
@@ -165,10 +153,43 @@ class ComponentInterdependencyMacro {
         return fields;
     }
 
-    private static function addRequiredComponents(context, constructor, constructorExprs):Void{
-        var posInfos = context.getPosInfos(constructor.pos);
-        var nextPos = context.makePosition({min:posInfos.max , max:posInfos.max+1, file:posInfos.file});
-        var newExpr = context.parseInlineString("requiredComponents = [PositionComponent]", nextPos);
-        constructorExprs.push(newExpr);
+    private static function addRequiredComponents(context, constructor, constructorExprs, requiredFields : Array<ComponentField>):Void{
+
+        var componentClasses = new Array<String>();
+
+        for (requiredField in requiredFields){
+            switch(requiredField.field.kind){
+                case FieldType.FVar( complexType, expr ):
+                    switch (complexType){
+                        case TPath(typePath):
+                            var nn = "";
+                            if (typePath.pack.length >0) nn = typePath.pack.join(".") + ".";
+                            requiredField.typeName = nn + typePath.name;
+                            componentClasses.push(requiredField.typeName);
+                        default : trace("not a TypePath");
+                    }
+
+                case FieldType.FProp( get, set, complexType, expr ):
+                    switch (complexType){
+                        case TPath(typePath):
+                            var nn = "";
+                            if (typePath.pack.length >0) nn = typePath.pack.join(".") + ".";
+                            requiredField.typeName = nn + typePath.name;
+                            componentClasses.push(requiredField.typeName);
+                        default : trace("not a TypePath");
+                    }
+                case FieldType.FFun( func ): trace("func cannot be components");
+            }
+        }
+
+        if (componentClasses.length > 0){
+            var componentClassArray = "[" + componentClasses.join(",") + "]";
+            trace(componentClassArray);
+            var posInfos = context.getPosInfos(constructor.pos);
+            var nextPos = context.makePosition({min:posInfos.max , max:posInfos.max+1, file:posInfos.file});
+            var newExpr = context.parseInlineString("requiredComponents = " + componentClassArray + "", nextPos);
+            constructorExprs.push(newExpr);
+        }
+
     }
 }

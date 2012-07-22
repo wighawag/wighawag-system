@@ -1,4 +1,5 @@
 package systems;
+import test.components.TestComponent;
 import components.AnotherViewComponent;
 import components.AIComponent;
 import core.Model;
@@ -48,7 +49,8 @@ class RandomEntityCreation extends AbstractSystem {
         entity.initialise([
             new AIComponent(),
             new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)),
-            new AnotherViewComponent(bitmapData)
+            new AnotherViewComponent(bitmapData),
+            new TestComponent()
         ]);
         return entity;
     }
