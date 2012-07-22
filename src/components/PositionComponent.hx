@@ -1,8 +1,8 @@
 package components;
 
 
-import core.EntityComponent;
-class PositionComponent implements EntityComponent{
+import core.Component;
+class PositionComponent implements Component{
 
     public var x : Float;
     public var y : Float;

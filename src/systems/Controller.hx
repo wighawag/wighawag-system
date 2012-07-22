@@ -1,16 +1,21 @@
 package systems;
 
+import core.SystemComponent;
 import components.PositionComponent;
 import core.Model;
 
-class Controller extends AbstractSystem{
+class Controller extends AbstractSystem, implements SystemComponent{
 
-    public function new(model : Model) {
-        super(model, [PositionComponent]);
+    public function new() {
+        super([PositionComponent]);
     }
 
-    override public function update(dt : Float) : Void{
-
+    public function update(dt : Float) : Void{
+        // TODO remove this :
+        if (!initialised && owner != null){
+            setModel(cast owner);
+            initialised = true;
+        }
 
     }
 }

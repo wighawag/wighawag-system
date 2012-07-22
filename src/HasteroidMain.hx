@@ -1,6 +1,6 @@
 package ;
 
-import core.SystemsEngine;
+import systems.BackgroundComponent;
 import systems.AISystem;
 import systems.RandomEntityCreation;
 import core.Model;
@@ -17,7 +17,6 @@ import nme.events.Event;
 class HasteroidMain extends Sprite{
 
     private var model : Model;
-    private var systemManager : SystemsEngine;
 
     private var lastUpdateTime : Float;
 
@@ -36,14 +35,14 @@ class HasteroidMain extends Sprite{
     private function onAddedToStage(event : Event) : Void{
         removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
-        model = new Model();
-
         var renderer = new Renderer(this);
-        var view = new View(model, renderer);
-        var entityCreation = new RandomEntityCreation(model, stage.stageWidth, stage.stageHeight);
-        var aiSystem = new AISystem(model);
+        var view = new View(renderer);
+        var entityCreation = new RandomEntityCreation(stage.stageWidth, stage.stageHeight);
+        var aiSystem = new AISystem();
 
-        systemManager = new SystemsEngine([entityCreation, aiSystem, view]);
+        model = new Model();
+        model.initialise([new BackgroundComponent()]);
+        model.setupSystemComponents([view, entityCreation, aiSystem]);
 
         addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
@@ -52,6 +51,6 @@ class HasteroidMain extends Sprite{
     private function onEnterFrame(event : Event) : Void{
         var now : Float = Timer.stamp();
         var dt = now - lastUpdateTime;
-        systemManager.update(dt);
+        model.update(dt);
     }
 }

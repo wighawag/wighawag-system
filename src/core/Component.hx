@@ -4,7 +4,7 @@ import haxe.rtti.Meta;
 import core.Entity;
 
 @:autoBuild(core.ComponentInterdependencyMacro.build())
-interface EntityComponent {
+interface Component {
 
     public var owner(default, null) : Entity;
     public var requiredComponents(default, null) : Array<Class<Dynamic>>;

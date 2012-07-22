@@ -8,43 +8,40 @@ class AbstractSystem {
 
     private var _entities : Array<Entity>;
     private var _entityRegistrar : ObjectHash<Entity, Bool>;
-    private var _model : Model;
-    private var _requiredComponents : Array<Class<Dynamic>>;
+    public var model(default, setModel) : Model;
+    private var _requiredEntityComponents : Array<Class<Dynamic>>;
 
-    public function new(model : Model, ?requiredComponents : Array<Class<Dynamic>>) {
+    private var initialised : Bool;
+
+    public function new(?requiredEntityComponents : Array<Class<Dynamic>>) {
         _entities = new Array();
         _entityRegistrar = new ObjectHash();
 
-        if (requiredComponents != null){
-            _requiredComponents = requiredComponents.copy();
+        if (requiredEntityComponents != null){
+            _requiredEntityComponents = requiredEntityComponents.copy();
         }
         else{
-            _requiredComponents = new Array();
+            _requiredEntityComponents = new Array();
         }
+    }
 
-        _model = model;
-        _model.onEntityAdded.bind(onEntityAdded);
-        _model.onEntityRemoved.bind(onEntityRemoved);
+    private function setModel(aModel : Model) : Model{
+        model = aModel;
+        model.onEntityAdded.bind(onEntityAdded);
+        model.onEntityRemoved.bind(onEntityRemoved);
 
-        for (entity in _model.entities){
+        for (entity in model.entities){
             onEntityAdded(entity);
         }
 
-    }
+        return model;
 
-    public function update(dt : Float) : Void{
-        throw "need override"; // TODO better than that ?
     }
 
     private function onEntityAdded(entity : Entity) : Void{
         if (hasRequiredComponents(entity)){
             _entities.push(entity);
             _entityRegistrar.set(entity, true);
-            // TODO add listenner to components being removed  ?
-        }
-        else
-        {
-            // TODO add listenner to components being added ???
         }
     }
 
@@ -54,12 +51,10 @@ class AbstractSystem {
             _entities.remove(entity);
             _entityRegistrar.delete(entity);
         }
-        // TODO remove listenner on components when listenners added
-
     }
 
     private function hasRequiredComponents(entity : Entity) : Bool{
-        for (requiredComponent in _requiredComponents){
+        for (requiredComponent in _requiredEntityComponents){
             if (entity.get(requiredComponent) == null){
                 return false;
             }

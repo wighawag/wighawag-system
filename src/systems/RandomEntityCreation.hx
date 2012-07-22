@@ -1,4 +1,5 @@
 package systems;
+import core.SystemComponent;
 import test.components.TestComponent;
 import components.AnotherViewComponent;
 import components.AIComponent;
@@ -7,25 +8,31 @@ import core.Entity;
 import components.PositionComponent;
 import components.GenericViewComponent;
 import nme.display.BitmapData;
-class RandomEntityCreation extends AbstractSystem {
+class RandomEntityCreation extends AbstractSystem , implements SystemComponent{
 
     private var width : Int;
     private var height : Int;
 
-    public function new(model: Model, width : Int, height : Int) {
-        super(model);
+    public function new(width : Int, height : Int) {
+        super();
 
         this.width = width;
         this.height = height;
     }
 
     private var n : Int;
-    override public function update(dt : Float) : Void
+    public function update(dt : Float) : Void
     {
+        // TODO remove this :
+        if (!initialised && owner != null){
+            setModel(cast owner);
+            initialised = true;
+        }
+
         if (n < 1000){
             n ++;
             var entity : Entity = createEntity();
-            _model.add(entity);
+            model.addEntity(entity);
         }
         else
         {

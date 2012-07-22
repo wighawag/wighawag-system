@@ -1,16 +1,8 @@
 package core;
 
-import core.EntityComponent;
+import core.Component;
 import com.fermmtools.utils.ObjectHash;
-import core.EntityComponent;
-
-//class Entity extends ComponentOwner<EntityComponent>{
-//
-//   public function new(){
-//       super();
-//   }
-//
-//}
+import core.Component;
 
 class Entity{
     private var _components : ObjectHash<Dynamic, Dynamic>;
@@ -19,17 +11,21 @@ class Entity{
         _components = new ObjectHash();
     }
 
-    public function get<T : EntityComponent>(componentClass : Class<T>) : T {
+    public function get<T : Component>(componentClass : Class<T>) : T {
         return _components.get(componentClass);
     }
 
-    public function initialise(components : Array<EntityComponent>) : Void{
+    public function initialise(components : Array<Component>) : Array<Component>{
         components = components.copy();
 
-        var componentWithMissingDependencies : EntityComponent = null;
+        var componentWithMissingDependencies : Component = null;
         var lengthAtThatpoint = 0;
 
+
         var componentsAdded = new ObjectHash<Class<Dynamic>, Bool>();
+        for (componentClass in _components){
+            componentsAdded.set(componentClass, true);
+        }
         while (components.length >0){
             var component = components.shift();
             var dependenciesFound = true;
@@ -40,7 +36,7 @@ class Entity{
                         components.push(component); // add back to the end of the list
                         if (componentWithMissingDependencies == component && lengthAtThatpoint == components.length){
                             trace("Could not resolved dependencies for " + components);
-                            return;
+                            return components;
                         }
                         if (componentWithMissingDependencies == null){
                             componentWithMissingDependencies = component;
@@ -58,9 +54,11 @@ class Entity{
             }
         }
 
+        return components;
+
     }
 
-    private function add<T : EntityComponent>(component :T) : Class<Dynamic> {
+    private function add<T : Component>(component :T) : Class<Dynamic> {
         var componentAccessClass = component.attach(this);
         if (componentAccessClass != null){
             _components.set(componentAccessClass, component);
