@@ -1,8 +1,8 @@
 package core;
 
-import components.EntityComponent;
+import core.EntityComponent;
 import com.fermmtools.utils.ObjectHash;
-import components.EntityComponent;
+import core.EntityComponent;
 
 //class Entity extends ComponentOwner<EntityComponent>{
 //

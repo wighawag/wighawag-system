@@ -1,9 +1,9 @@
-package components;
+package core;
 
 import haxe.rtti.Meta;
 import core.Entity;
 
-@:autoBuild(components.ComponentInterdependencyMacro.build())
+@:autoBuild(core.ComponentInterdependencyMacro.build())
 interface EntityComponent {
 
     public var owner(default, null) : Entity;

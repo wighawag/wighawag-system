@@ -1,5 +1,6 @@
 package components;
 
+import core.EntityComponent;
 class AIComponent implements EntityComponent {
 
     @owner

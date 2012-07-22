@@ -1,6 +1,7 @@
 package components;
 
 
+import core.EntityComponent;
 class PositionComponent implements EntityComponent{
 
     public var x : Float;

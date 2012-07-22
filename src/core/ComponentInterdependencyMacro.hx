@@ -1,4 +1,4 @@
-package components;
+package core;
 
 import haxe.macro.Type;
 import haxe.macro.Expr;

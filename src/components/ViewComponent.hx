@@ -1,5 +1,6 @@
 package components;
 
+import core.EntityComponent;
 import renderer.Renderer;
 
 @accessClass
