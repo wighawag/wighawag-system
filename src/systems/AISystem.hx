@@ -13,7 +13,7 @@ class AISystem implements SystemComponent{
 
     public function update(dt : Float) : Void{
 
-        for (entity in entities){
+        for (entity in registeredEntities){
              entity.get(AIComponent).update(dt);
          }
     }

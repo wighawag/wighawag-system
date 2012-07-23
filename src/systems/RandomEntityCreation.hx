@@ -28,12 +28,12 @@ class RandomEntityCreation implements SystemComponent{
     {
         if (n < 1000){
             n ++;
-            var entity : ComponentOwner = createEntity();
+            var entity : Entity = createEntity();
             model.addEntity(entity);
         }
         else
         {
-            for (entity in entities){
+            for (entity in registeredEntities){
                 var positionComponent = entity.get(PositionComponent);
                 positionComponent.x = Math.random() * (width - 32);
                 positionComponent.y = Math.random() * (height - 32);
@@ -44,7 +44,7 @@ class RandomEntityCreation implements SystemComponent{
     }
 
     private var bitmapData : BitmapData;
-    private function createEntity() : ComponentOwner{
+    private function createEntity() : Entity{
         var entity : Entity = new Entity();
 
         if (bitmapData == null){

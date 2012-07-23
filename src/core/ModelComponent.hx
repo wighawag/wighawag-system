@@ -1,4 +1,5 @@
 package core;
+@:autoBuild(core.ModelComponentMacro.build())
 interface ModelComponent implements Component{
-    //TODO Move model from SystemComponent here (need to extract teh correspondign macro code as well
+    public var model(default, setModel) : Model;
 }

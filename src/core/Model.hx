@@ -5,17 +5,17 @@ import hsl.haxe.DirectSignaler;
 
 class Model extends ComponentOwner{
 
-    public var entities : Array<ComponentOwner>;
-    public var onEntityAdded : Signaler<ComponentOwner>;
-    public var onEntityRemoved : Signaler<ComponentOwner>;
+    public var entities : Array<Entity>;
+    public var onEntityAdded : Signaler<Entity>;
+    public var onEntityRemoved : Signaler<Entity>;
 
     private var _systemComponents : Array<SystemComponent>;
 
     public function new(){
         super();
-        entities = new Array<ComponentOwner>();
-        onEntityAdded = new DirectSignaler<ComponentOwner>(this);
-        onEntityRemoved = new DirectSignaler<ComponentOwner>(this);
+        entities = new Array<Entity>();
+        onEntityAdded = new DirectSignaler<Entity>(this);
+        onEntityRemoved = new DirectSignaler<Entity>(this);
 
     }
 
@@ -47,13 +47,13 @@ class Model extends ComponentOwner{
     }
 
 
-    public function addEntity(entity : ComponentOwner) : Void
+    public function addEntity(entity : Entity) : Void
     {
         entities.push(entity);
         onEntityAdded.dispatch(entity);
     }
 
-    public function removeEntity(entity : ComponentOwner) : Void
+    public function removeEntity(entity : Entity) : Void
     {
         var removed : Bool = entities.remove(entity);
         if (removed){

@@ -24,7 +24,7 @@ class View implements SystemComponent{
     {
         _renderer.clear();
         backgroundComponent.draw();
-        for (entity in entities){
+        for (entity in registeredEntities){
             var viewComponent : ViewComponent = entity.get(ViewComponent);
             viewComponent.draw(_renderer);
         }

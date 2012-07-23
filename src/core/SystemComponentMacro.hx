@@ -44,7 +44,7 @@ class SystemComponentMacro {
 
         if (constructorExprs != null){
             var constructorExpr = "{" +
-            "entities = new Array();"+
+            "registeredEntities = new Array();"+
             "_entityRegistrar = new com.fermmtools.utils.ObjectHash();"+
             "_requiredEntityComponents = " + requiredEntityComponentsExprString  + ";" +
             "}";
@@ -56,12 +56,6 @@ class SystemComponentMacro {
             context.error("No Construcotr found", pos);
             return null;
         }
-
-
-        var modelProp = FProp("default", "setModel", TPath({ sub:null, name:"Model", pack:["core"], params:[]}));
-        fields.push({ name : "model", doc : null, meta : null, access : [APublic], kind : modelProp, pos : pos });
-
-
 
         fields.push(MacroHelper.createFunction(
             "setModel",
@@ -78,13 +72,14 @@ class SystemComponentMacro {
             "}"
         ));
 
+
         fields.push(MacroHelper.createFunction(
             "onEntityAdded",
-            [{name : "entity", typeName : "core.ComponentOwner"}],
+            [{name : "entity", typeName : "core.Entity"}],
             "Void",
             "{" +
             "if (hasRequiredComponents(entity)){" +
-            "    entities.push(entity);" +
+            "    registeredEntities.push(entity);" +
                 "_entityRegistrar.set(entity, true);"+
             "}"+
             "}"
@@ -92,12 +87,12 @@ class SystemComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "onEntityRemoved",
-            [{name : "entity", typeName : "core.ComponentOwner"}],
+            [{name : "entity", typeName : "core.Entity"}],
             "Void",
             "{" +
             "if (_entityRegistrar.exists(entity))" +
             "{"+
-            "    entities.remove(entity);"+
+            "    registeredEntities.remove(entity);"+
             "    _entityRegistrar.delete(entity);" +
             "}"+
             "}"
@@ -118,10 +113,10 @@ class SystemComponentMacro {
         ));
 
 
-        var entitiesVar = FieldType.FVar(TPath({ sub:null, name:"Array", pack:[], params:[
-            TPType(TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[] }))
+        var registeredEntitiesProp = FieldType.FProp("default", "null", TPath({ sub:null, name:"Array", pack:[], params:[
+            TPType(TPath({ sub:null, name:"Entity", pack:["core"], params:[] }))
         ]}));
-        fields.push({ name : "entities", doc : null, meta : null, access : [APrivate], kind : entitiesVar, pos : pos });
+        fields.push({ name : "registeredEntities", doc : null, meta : null, access : [APublic], kind : registeredEntitiesProp, pos : pos });
 
 
         var requiredComponentsVar = FieldType.FVar(TPath({ sub:null, name:"Array", pack:[], params:[
