@@ -7,6 +7,6 @@ class BackgroundComponent implements ModelComponent {
     }
 
     public function draw() : Void{
-        trace("draw background");
+        //trace("draw background");
     }
 }

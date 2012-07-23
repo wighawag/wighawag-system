@@ -15,12 +15,15 @@ class RandomEntityCreation implements SystemComponent{
     private var width : Int;
     private var height : Int;
 
+    private var n : Int;
+
     public function new(width : Int, height : Int) {
         this.width = width;
         this.height = height;
+        this.n = 0;
     }
 
-    private var n : Int;
+
     public function update(dt : Float) : Void
     {
         if (n < 1000){
