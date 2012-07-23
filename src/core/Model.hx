@@ -3,30 +3,33 @@ package core;
 import hsl.haxe.Signaler;
 import hsl.haxe.DirectSignaler;
 
-class Model extends Entity{
+class Model extends ComponentOwner{
 
-    public var entities : Array<Entity>;
-    public var onEntityAdded : Signaler<Entity>;
-    public var onEntityRemoved : Signaler<Entity>;
+    public var entities : Array<ComponentOwner>;
+    public var onEntityAdded : Signaler<ComponentOwner>;
+    public var onEntityRemoved : Signaler<ComponentOwner>;
 
     private var _systemComponents : Array<SystemComponent>;
 
     public function new(){
         super();
-        entities = new Array<Entity>();
-        onEntityAdded = new DirectSignaler<Entity>(this);
-        onEntityRemoved = new DirectSignaler<Entity>(this);
+        entities = new Array<ComponentOwner>();
+        onEntityAdded = new DirectSignaler<ComponentOwner>(this);
+        onEntityRemoved = new DirectSignaler<ComponentOwner>(this);
 
     }
 
 
-    public function setupSystemComponents(systemComponents : Array<SystemComponent>) :  Array<Component>{
+    public function setup(modelComponents : Array<ModelComponent>, systemComponents : Array<SystemComponent>) : Void{
         _systemComponents = new Array();
         var components = new Array<Component>();
+        for (modelComponent in modelComponents){
+            components.push(modelComponent);
+        }
         for (systemComponent in systemComponents){
             _systemComponents.push(systemComponent);
             components.push(systemComponent);
-            systemComponent.model = this;
+            systemComponent.model = this; // TODO use setModel and do not allow normal setter
         }
 
         var failedComponents = initialise(components);
@@ -35,7 +38,6 @@ class Model extends Entity{
             trace("systemComponent: " + failedComponent + " failed to find its dependencies, it is disabled");
             _systemComponents.remove(cast failedComponent);
         }
-        return failedComponents;
     }
 
     public function update(dt : Float) : Void{
@@ -45,13 +47,13 @@ class Model extends Entity{
     }
 
 
-    public function addEntity(entity : Entity) : Void
+    public function addEntity(entity : ComponentOwner) : Void
     {
         entities.push(entity);
         onEntityAdded.dispatch(entity);
     }
 
-    public function removeEntity(entity : Entity) : Void
+    public function removeEntity(entity : ComponentOwner) : Void
     {
         var removed : Bool = entities.remove(entity);
         if (removed){

@@ -4,7 +4,7 @@ import core.SystemComponent;
 import components.ViewComponent;
 import renderer.Renderer;
 import core.Model;
-import core.Entity;
+import core.ComponentOwner;
 import components.PositionComponent;
 import components.GenericViewComponent;
 

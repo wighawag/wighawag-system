@@ -2,12 +2,12 @@ package systems;
 
 import com.fermmtools.utils.ObjectHash;
 import core.Model;
-import core.Entity;
+import core.ComponentOwner;
 
 class AbstractSystem {
 
-    private var _entities : Array<Entity>;
-    private var _entityRegistrar : ObjectHash<Entity, Bool>;
+    private var _entities : Array<ComponentOwner>;
+    private var _entityRegistrar : ObjectHash<ComponentOwner, Bool>;
     public var model(default, setModel) : Model;
     private var _requiredEntityComponents : Array<Class<Dynamic>>;
 
@@ -38,14 +38,14 @@ class AbstractSystem {
 
     }
 
-    private function onEntityAdded(entity : Entity) : Void{
+    private function onEntityAdded(entity : ComponentOwner) : Void{
         if (hasRequiredComponents(entity)){
             _entities.push(entity);
             _entityRegistrar.set(entity, true);
         }
     }
 
-    private function onEntityRemoved(entity : Entity) : Void{
+    private function onEntityRemoved(entity : ComponentOwner) : Void{
         if (_entityRegistrar.exists(entity))
         {
             _entities.remove(entity);
@@ -53,7 +53,7 @@ class AbstractSystem {
         }
     }
 
-    private function hasRequiredComponents(entity : Entity) : Bool{
+    private function hasRequiredComponents(entity : ComponentOwner) : Bool{
         for (requiredComponent in _requiredEntityComponents){
             if (entity.get(requiredComponent) == null){
                 return false;

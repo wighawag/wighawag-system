@@ -121,20 +121,20 @@ class ComponentInterdependencyMacro {
             return null;
         }
 
-        // add the required components to the requiredComponents instance field so that the Entity can check teh dependencies
+        // add the required components to the requiredComponents instance field so that the ComponentOwner can check teh dependencies
         addRequiredComponents(constructorExprs, requiredFields);
 
 
         // implement attach so that it assing the component field to the corresponding sibling components from the owner
         var attachExpr : Expr;
-        // The check for missing components should not be necessary anymore as Entity does the checking
+        // The check for missing components should not be necessary anymore as ComponentOwner does the checking
         if (requiredFields.length > 0) {
             var exprString = "{";
             exprString += "var missingComponents : Array<Class<Dynamic>> = new Array();";
 
 
             for (requiredField in requiredFields){
-                exprString += "" + requiredField.fieldName + " = entity.get(" + requiredField.typeName + ");\n";
+                exprString += "" + requiredField.fieldName + " = componentOwner.get(" + requiredField.typeName + ");\n";
                 exprString += "if ("+ requiredField.fieldName +" == null){\n";
                 exprString += "missingComponents.push(" + requiredField.typeName + ");\n";
                 exprString += "}\n";
@@ -146,7 +146,7 @@ class ComponentInterdependencyMacro {
             exprString += "  return null;\n";
             exprString += "}\n";
 
-            exprString += "owner = entity;";
+            exprString += "owner = componentOwner;";
             exprString += "return " + accessClass + ";\n";
 
             exprString += "}\n";
@@ -156,7 +156,7 @@ class ComponentInterdependencyMacro {
         else
         {
             trace(accessClass);
-            attachExpr = context.parse("{owner = entity; return " + accessClass + ";}", pos);
+            attachExpr = context.parse("{owner = componentOwner; return " + accessClass + ";}", pos);
         }
 
         var attachFunction = {
@@ -165,7 +165,7 @@ class ComponentInterdependencyMacro {
         ]}),
         params : [],
         expr : attachExpr,
-        args : [{value : null, type : TPath({ sub:null, name:"Entity", pack:["core"], params:[] }), opt : false, name :"entity"}] };
+        args : [{value : null, type : TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[] }), opt : false, name :"componentOwner"}] };
 
         fields.push({ name : "attach", doc : null, meta : null, access : [APublic], kind : FFun(attachFunction), pos : pos });
 
@@ -180,7 +180,7 @@ class ComponentInterdependencyMacro {
         fields.push({ name : "detach", doc : null, meta : null, access : [APublic], kind : FFun(detachFunction), pos : pos });
 
 
-        var ownerProp = FProp("default", "null", TPath({ sub:null, name:"Entity", pack:["core"], params:[]}));
+        var ownerProp = FProp("default", "null", TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[]}));
         fields.push({ name : "owner", doc : null, meta : null, access : [APublic], kind : ownerProp, pos : pos });
 
 

@@ -1,9 +1,9 @@
 package components;
 
-import core.Component;
+import core.EntityComponent;
 import renderer.Renderer;
 
 @accessClass
-interface ViewComponent implements Component {
+interface ViewComponent implements EntityComponent {
     public function draw(renderer:Renderer):Void;
 }

@@ -1,7 +1,7 @@
 package systems;
 import core.SystemComponent;
 import core.Model;
-import core.Entity;
+import core.ComponentOwner;
 import components.PositionComponent;
 import components.AIComponent;
 

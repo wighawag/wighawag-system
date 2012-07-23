@@ -17,7 +17,7 @@ class SystemComponentMacro {
 
         var requiredEntityComponentsExprString = "[";
         if (localClass.meta.has("entities")){
-            trace(localClass.meta.get());
+            // TODO //trace(localClass.meta.get());
         }
         requiredEntityComponentsExprString += "]";
 
@@ -80,7 +80,7 @@ class SystemComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "onEntityAdded",
-            [{name : "entity", typeName : "core.Entity"}],
+            [{name : "entity", typeName : "core.ComponentOwner"}],
             "Void",
             "{" +
             "if (hasRequiredComponents(entity)){" +
@@ -92,7 +92,7 @@ class SystemComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "onEntityRemoved",
-            [{name : "entity", typeName : "core.Entity"}],
+            [{name : "entity", typeName : "core.ComponentOwner"}],
             "Void",
             "{" +
             "if (_entityRegistrar.exists(entity))" +
@@ -105,7 +105,7 @@ class SystemComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "hasRequiredComponents",
-            [{name : "entity", typeName : "core.Entity"}],
+            [{name : "entity", typeName : "core.ComponentOwner"}],
             "Bool",
             "{" +
             "for (requiredComponent in _requiredEntityComponents){"+
@@ -119,7 +119,7 @@ class SystemComponentMacro {
 
 
         var entitiesVar = FieldType.FVar(TPath({ sub:null, name:"Array", pack:[], params:[
-            TPType(TPath({ sub:null, name:"Entity", pack:["core"], params:[] }))
+            TPType(TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[] }))
         ]}));
         fields.push({ name : "entities", doc : null, meta : null, access : [APrivate], kind : entitiesVar, pos : pos });
 
@@ -133,7 +133,7 @@ class SystemComponentMacro {
 
 
         var entityRegistrarVar = FieldType.FVar(TPath({ sub:null, name:"ObjectHash", pack:["com", "fermmtools", "utils"], params:[
-            TPType(TPath({ sub:null, name:"Entity", pack:["core"], params:[] })),
+            TPType(TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[] })),
             TPType(TPath({ sub:null, name:"Bool", pack:[], params:[] }))
         ]}));
         fields.push({ name : "_entityRegistrar", doc : null, meta : null, access : [APrivate], kind : entityRegistrarVar, pos : pos });

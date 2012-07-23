@@ -1,9 +1,8 @@
 package test.components;
 
-//import components.PositionComponent;
-import core.Component;
+import core.EntityComponent;
 
-class TestComponent implements Component{
+class TestComponent implements EntityComponent{
 
     @owner
     var position : components.PositionComponent;

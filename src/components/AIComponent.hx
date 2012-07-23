@@ -1,7 +1,8 @@
 package components;
 
-import core.Component;
-class AIComponent implements Component {
+import core.EntityComponent;
+
+class AIComponent implements EntityComponent {
 
     @owner
     private var positionComponent : PositionComponent;

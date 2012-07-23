@@ -5,6 +5,7 @@ import components.AnotherViewComponent;
 import components.AIComponent;
 import core.Model;
 import core.Entity;
+import core.ComponentOwner;
 import components.PositionComponent;
 import components.GenericViewComponent;
 import nme.display.BitmapData;
@@ -24,7 +25,7 @@ class RandomEntityCreation implements SystemComponent{
     {
         if (n < 1000){
             n ++;
-            var entity : Entity = createEntity();
+            var entity : ComponentOwner = createEntity();
             model.addEntity(entity);
         }
         else
@@ -40,13 +41,13 @@ class RandomEntityCreation implements SystemComponent{
     }
 
     private var bitmapData : BitmapData;
-    private function createEntity() : Entity{
+    private function createEntity() : ComponentOwner{
         var entity : Entity = new Entity();
 
         if (bitmapData == null){
             bitmapData = new BitmapData(32,32, false, 0xFF0000);
         }
-        entity.initialise([
+        entity.setup([
             new AIComponent(),
             new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)),
             new AnotherViewComponent(bitmapData),
