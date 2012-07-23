@@ -29,7 +29,7 @@ class Model extends ComponentOwner{
         for (systemComponent in systemComponents){
             _systemComponents.push(systemComponent);
             components.push(systemComponent);
-            systemComponent.model = this; // TODO use setModel and do not allow normal setter
+            systemComponent.model = this;
         }
 
         var failedComponents = initialise(components);

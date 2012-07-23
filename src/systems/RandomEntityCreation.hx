@@ -50,6 +50,15 @@ class RandomEntityCreation implements SystemComponent{
         if (bitmapData == null){
             bitmapData = new BitmapData(32,32, false, 0xFF0000);
         }
+        if (n ==3){
+            entity.setup([
+            new AIComponent(),
+            new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)),
+            new TestComponent()
+            ]);
+            return entity;
+        }
+
         entity.setup([
             new AIComponent(),
             new PositionComponent(Math.random() * (width - 32), Math.random() * (height - 32)),

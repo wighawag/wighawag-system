@@ -16,9 +16,32 @@ class SystemComponentMacro {
         }
 
         var requiredEntityComponentsExprString = "[";
-        if (localClass.meta.has("entities")){
-            // TODO //trace(localClass.meta.get());
+        var componentRequiredList = new Array<String>();
+        var metadata = localClass.meta.get();
+        for (metaDatum in metadata){
+            if (metaDatum.name == "entities"){
+                for (param in metaDatum.params){
+                    switch(param.expr){
+                        case EArrayDecl(values) :
+                            for (value in values){
+                                switch (value.expr){
+                                    case EConst(c) :
+                                        switch (c){
+                                            case CString(s): componentRequiredList.push(s);
+                                            default : context.error("The entities metaData shoudl be an Array of String", pos); return null;
+                                        }
+
+                                    default: context.error("The entities metaData shoudl be an Array of String", pos); return null;
+                                }
+                            }
+
+                        default : context.error("The entities metaData shoudl be an Array of String", pos); return null;
+                    }
+                }
+            }
         }
+
+        requiredEntityComponentsExprString += componentRequiredList.join(",");
         requiredEntityComponentsExprString += "]";
 
 
