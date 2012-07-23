@@ -1,8 +1,7 @@
 package systems;
-import core.ModelComponent;
 import core.Component;
 
-class BackgroundComponent implements ModelComponent {
+class BackgroundComponent implements Component {
     public function new() {
     }
 

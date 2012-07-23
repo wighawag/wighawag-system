@@ -8,7 +8,8 @@ import core.Entity;
 import components.PositionComponent;
 import components.GenericViewComponent;
 
-class View extends AbstractSystem, implements SystemComponent{
+@entities(['components.ViewComponent', 'components.PositionComponent'])
+class View implements SystemComponent{
 
     @owner
     private var backgroundComponent : BackgroundComponent;
@@ -16,23 +17,14 @@ class View extends AbstractSystem, implements SystemComponent{
     private var _renderer : Renderer;
 
     public function new(renderer : Renderer) {
-        super([ViewComponent, PositionComponent]);
-
         _renderer = renderer;
-
     }
 
     public function update(dt : Float) : Void
     {
-        // TODO remove this :
-        if (!initialised && owner != null){
-            setModel(cast owner);
-            initialised = true;
-        }
-
         _renderer.clear();
         backgroundComponent.draw();
-        for (entity in _entities){
+        for (entity in entities){
             var viewComponent : ViewComponent = entity.get(ViewComponent);
             viewComponent.draw(_renderer);
         }

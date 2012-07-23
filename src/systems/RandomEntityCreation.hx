@@ -8,14 +8,13 @@ import core.Entity;
 import components.PositionComponent;
 import components.GenericViewComponent;
 import nme.display.BitmapData;
-class RandomEntityCreation extends AbstractSystem , implements SystemComponent{
+
+class RandomEntityCreation implements SystemComponent{
 
     private var width : Int;
     private var height : Int;
 
     public function new(width : Int, height : Int) {
-        super();
-
         this.width = width;
         this.height = height;
     }
@@ -23,12 +22,6 @@ class RandomEntityCreation extends AbstractSystem , implements SystemComponent{
     private var n : Int;
     public function update(dt : Float) : Void
     {
-        // TODO remove this :
-        if (!initialised && owner != null){
-            setModel(cast owner);
-            initialised = true;
-        }
-
         if (n < 1000){
             n ++;
             var entity : Entity = createEntity();
@@ -36,7 +29,7 @@ class RandomEntityCreation extends AbstractSystem , implements SystemComponent{
         }
         else
         {
-            for (entity in _entities){
+            for (entity in entities){
                 var positionComponent = entity.get(PositionComponent);
                 positionComponent.x = Math.random() * (width - 32);
                 positionComponent.y = Math.random() * (height - 32);

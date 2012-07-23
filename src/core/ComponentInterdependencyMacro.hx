@@ -27,10 +27,13 @@ class ComponentInterdependencyMacro {
         var superClassRef = localClass.superClass;
         if (superClassRef != null){
             superClass = superClassRef.t.get();
+
+
             var errorMessage = "Components cannot extends another Component, if they need common stuff they can both extends a Class which is not itself a Component";
 
-            for (superField in superClass.fields.get()){
-                if (superField.name == "owner"){
+            var superFields = superClass.fields.get();
+            for (superField in superFields){
+                if (superField.name == "owner" ){
                     context.error(errorMessage, pos);
                     return null;
                 }
@@ -158,7 +161,7 @@ class ComponentInterdependencyMacro {
 
         var attachFunction = {
         ret : TPath({ sub:null, name:"Class", pack:[], params:[
-        TPType(TPath({ sub:null, name:"Dynamic", pack:[], params:[] }))
+            TPType(TPath({ sub:null, name:"Dynamic", pack:[], params:[] }))
         ]}),
         params : [],
         expr : attachExpr,

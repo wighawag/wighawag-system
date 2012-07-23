@@ -5,21 +5,15 @@ import core.Entity;
 import components.PositionComponent;
 import components.AIComponent;
 
-class AISystem extends AbstractSystem, implements SystemComponent{
+@entities(['components.AIComponent'])
+class AISystem implements SystemComponent{
 
     public function new() {
-        super([AIComponent]);
     }
 
     public function update(dt : Float) : Void{
-        // TODO remove this :
-        if (!initialised && owner != null){
-            setModel(cast owner);
-            initialised = true;
-        }
 
-
-        for (entity in _entities){
+        for (entity in entities){
              entity.get(AIComponent).update(dt);
          }
     }
