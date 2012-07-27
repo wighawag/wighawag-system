@@ -9,11 +9,9 @@ class SystemComponentMacro {
 
         // get the Component Class
         var localClass = context.getLocalClass().get();
-        trace("SystemComponentMacro processing  " + localClass.name);
 
         // if it is an interface, skip as we are here implementing methods
         if (localClass.isInterface){
-            trace("" + localClass.name + " is an interface , skipping..");
             return null;
         }
 
@@ -22,7 +20,6 @@ class SystemComponentMacro {
         var metadata = localClass.meta.get();
         for (metaDatum in metadata){
             if (metaDatum.name == "entities"){
-                trace("metadata entities found on " +localClass.name + " " + metaDatum);
                 for (param in metaDatum.params){
                     switch(param.expr){
                         case EArrayDecl(values) :

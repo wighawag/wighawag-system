@@ -20,7 +20,7 @@ class Model extends ComponentOwner{
     }
 
 
-    public function setup(modelComponents : Array<ModelComponent>, systemComponents : Array<SystemComponent,Updatable>) : Void{
+    public function setup(modelComponents : Array<ModelComponent>, systemComponents : Array<SystemComponent>) : Void{
         _systemComponents = new Array();
         var components = new Array<Component>();
         for (modelComponent in modelComponents){

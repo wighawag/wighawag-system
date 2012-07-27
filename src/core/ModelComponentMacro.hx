@@ -7,11 +7,9 @@ class ModelComponentMacro {
 
         // get the Component Class
         var localClass = context.getLocalClass().get();
-        trace("ModelComponentMacro processing  " + localClass.name);
 
         // if it is an interface, skip as we are here implementing methods
         if (localClass.isInterface){
-            trace("" + localClass.name + " is an interface , skipping..");
             return null;
         }
 
