@@ -7,9 +7,11 @@ class ModelComponentMacro {
 
         // get the Component Class
         var localClass = context.getLocalClass().get();
+        trace("ModelComponentMacro processing  " + localClass.name);
 
         // if it is an interface, skip as we are here implementing methods
         if (localClass.isInterface){
+            trace("" + localClass.name + " is an interface , skipping..");
             return null;
         }
 
@@ -17,15 +19,22 @@ class ModelComponentMacro {
         var fields = context.getBuildFields();
 
 
-        var modelProp = FProp("default", "setModel", TPath({ sub:null, name:"Model", pack:["core"], params:[]}));
-        fields.push({ name : "model", doc : null, meta : null, access : [APublic], kind : modelProp, pos : pos });
-
         var setModelPresent = false;
+        var modelPresent = false;
         for (field in fields){
             if (field.name == "setModel"){
                 setModelPresent = true;
             }
+            if (field.name == "model"){
+                modelPresent = true;
+            }
         }
+
+        if (!modelPresent){
+            var modelProp = FProp("default", "setModel", TPath({ sub:null, name:"Model", pack:["core"], params:[]}));
+            fields.push({ name : "model", doc : null, meta : null, access : [APublic], kind : modelProp, pos : pos });
+        }
+
         if(!setModelPresent){
             fields.push(MacroHelper.createFunction(
                 "setModel",

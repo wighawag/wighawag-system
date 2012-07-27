@@ -1,12 +1,9 @@
 package systems;
 
+import core.Entity;
 import core.SystemComponent;
 import components.ViewComponent;
 import renderer.Renderer;
-import core.Model;
-import core.ComponentOwner;
-import components.PositionComponent;
-import components.GenericViewComponent;
 
 @entities(['components.ViewComponent', 'components.PositionComponent'])
 class View implements SystemComponent{
@@ -18,6 +15,14 @@ class View implements SystemComponent{
 
     public function new(renderer : Renderer) {
         _renderer = renderer;
+    }
+
+    public function onEntityRegistered(entity : Entity) : Void{
+
+    }
+
+    public function onEntityUnregistered(entity : Entity) : Void{
+
     }
 
     public function update(dt : Float) : Void

@@ -2,16 +2,26 @@ package systems;
 
 import core.SystemComponent;
 import components.PositionComponent;
-import core.Model;
+import core.Entity;
 
-@entities('components.PositionComponent')
 class Controller implements SystemComponent{
 
     public function new() {
 
     }
 
-    public function update(dt : Float) : Void{
+    public function onEntityRegistered(entity : Entity) : Void{
+        trace("entity registered with Controller");
+    }
+
+    public function onEntityUnregistered(entity : Entity) : Void{
+        trace("entity unregistered from Controller");
+    }
+
+    public function update(dt : Float) : Void
+    {
 
     }
+
+
 }

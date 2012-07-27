@@ -9,9 +9,11 @@ class SystemComponentMacro {
 
         // get the Component Class
         var localClass = context.getLocalClass().get();
+        trace("SystemComponentMacro processing  " + localClass.name);
 
         // if it is an interface, skip as we are here implementing methods
         if (localClass.isInterface){
+            trace("" + localClass.name + " is an interface , skipping..");
             return null;
         }
 
@@ -20,6 +22,7 @@ class SystemComponentMacro {
         var metadata = localClass.meta.get();
         for (metaDatum in metadata){
             if (metaDatum.name == "entities"){
+                trace("metadata entities found on " +localClass.name + " " + metaDatum);
                 for (param in metaDatum.params){
                     switch(param.expr){
                         case EArrayDecl(values) :
@@ -80,31 +83,53 @@ class SystemComponentMacro {
             return null;
         }
 
-        fields.push(MacroHelper.createFunction(
-            "setModel",
-            [{name : "aModel", typeName : "core.Model"}],
-            "core.Model",
-            "{" +
-            "model = aModel;" +
-            "model.onEntityAdded.bind(onEntityAdded);" +
-            "model.onEntityRemoved.bind(onEntityRemoved);" +
-            "for (entity in model.entities){" +
-            "onEntityAdded(entity);"  +
-            "}" +
-            "return model;" +
-            "}"
-        ));
+        var setModelPresent = false;
+        var modelPresent = false;
+        for (field in fields){
+            if (field.name == "setModel"){
+                setModelPresent = true;
+            }
+            if (field.name == "model"){
+                modelPresent = true;
+            }
+        }
 
+        if (!modelPresent){
+            var modelProp = FProp("default", "setModel", TPath({ sub:null, name:"Model", pack:["core"], params:[]}));
+            fields.push({ name : "model", doc : null, meta : null, access : [APublic], kind : modelProp, pos : pos });
+        }
+
+        if(!setModelPresent){
+
+            fields.push(MacroHelper.createFunction(
+                "setModel",
+                [{name : "aModel", typeName : "core.Model"}],
+                "core.Model",
+                "{" +
+                "model = aModel;" +
+                "model.onEntityAdded.bind(onEntityAdded);" +
+                "model.onEntityRemoved.bind(onEntityRemoved);" +
+                "for (entity in model.entities){" +
+                "onEntityAdded(entity);"  +
+                "}" +
+                "return model;" +
+                "}"
+            ));
+        }
 
         fields.push(MacroHelper.createFunction(
             "onEntityAdded",
             [{name : "entity", typeName : "core.Entity"}],
             "Void",
             "{" +
+            "if (!_entityRegistrar.exists(entity))" +
+            "{"+
             "if (hasRequiredComponents(entity)){" +
             "    registeredEntities.push(entity);" +
                 "_entityRegistrar.set(entity, true);"+
+                "onEntityRegistered(entity);" +
             "}"+
+            "}"+ // TODO : else error : trying to add two time the same entity
             "}"
         ));
 
@@ -117,7 +142,8 @@ class SystemComponentMacro {
             "{"+
             "    registeredEntities.remove(entity);"+
             "    _entityRegistrar.delete(entity);" +
-            "}"+
+                "onEntityUnregistered(entity);" +
+            "}"+ // TODO : else error : trying to add two time the same entity
             "}"
         ));
 

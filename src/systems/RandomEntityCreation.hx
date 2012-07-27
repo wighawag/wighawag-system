@@ -23,6 +23,14 @@ class RandomEntityCreation implements SystemComponent{
         this.n = 0;
     }
 
+    public function onEntityRegistered(entity : Entity) : Void{
+
+    }
+
+    public function onEntityUnregistered(entity : Entity) : Void{
+
+    }
+
 
     public function update(dt : Float) : Void
     {

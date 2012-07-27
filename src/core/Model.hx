@@ -20,11 +20,12 @@ class Model extends ComponentOwner{
     }
 
 
-    public function setup(modelComponents : Array<ModelComponent>, systemComponents : Array<SystemComponent>) : Void{
+    public function setup(modelComponents : Array<ModelComponent>, systemComponents : Array<SystemComponent,Updatable>) : Void{
         _systemComponents = new Array();
         var components = new Array<Component>();
         for (modelComponent in modelComponents){
             components.push(modelComponent);
+            modelComponent.model = this;
         }
         for (systemComponent in systemComponents){
             _systemComponents.push(systemComponent);
@@ -37,6 +38,7 @@ class Model extends ComponentOwner{
         for (failedComponent in failedComponents){
             trace("systemComponent: " + failedComponent + " failed to find its dependencies, it is disabled");
             _systemComponents.remove(cast failedComponent);
+            cast(failedComponent,ModelComponent).model = null;
         }
     }
 

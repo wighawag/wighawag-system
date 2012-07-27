@@ -1,5 +1,6 @@
 package ;
 
+import systems.Controller;
 import systems.BackgroundComponent;
 import systems.AISystem;
 import systems.RandomEntityCreation;
@@ -14,6 +15,9 @@ import nme.Lib;
 import nme.display.Sprite;
 import nme.events.Event;
 
+//import mconsole.Printer;
+//import mconsole.LogLevel;
+
 class HasteroidMain extends Sprite{
 
     private var model : Model;
@@ -21,8 +25,15 @@ class HasteroidMain extends Sprite{
     private var lastUpdateTime : Float;
 
     public static function main() : Void{
+
         var app : HasteroidMain = new HasteroidMain();
         Lib.current.addChild(app);
+
+        Console.start();
+
+
+// throw an exception :        Console.assert(false, "false");
+        trace("log" , "test");
     }
 
     public function new() {
@@ -39,9 +50,10 @@ class HasteroidMain extends Sprite{
         var view = new View(renderer);
         var entityCreation = new RandomEntityCreation(stage.stageWidth, stage.stageHeight);
         var aiSystem = new AISystem();
+        var controllerSystem = new Controller();
 
         model = new Model();
-        model.setup([new BackgroundComponent()], [view, entityCreation, aiSystem]);
+        model.setup([new BackgroundComponent(), controllerSystem], [view, entityCreation, aiSystem]);
 
         addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
