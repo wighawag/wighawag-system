@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project>
+	<yoga-version>1</yoga-version>
+	<compiler-version>2.10</compiler-version>
+	
+	<id>com.wighawag.system</id>
+	<version>0.0.1</version>
+
+	<main>HasteroidMain</main>
+	
+	<sources>
+		<source path="src" />
+	</sources>
+	
+	<tests framework="munit" path="test" />
+	
+	<targets hxml="compile">
+		
+		<target name="swf" >
+			<param line="-swf-version 11" />
+		</target>
+		
+		<target name="cpp" />
+
+		<target name="js" />		
+
+	</targets>
+	
+	
+	<config-file template="hxproj.template" output="system_flash.hxproj" />
+	<config-file template="nmml.template" output="system.nmml" />
+
+	<dependencies>
+		<haxelib name="hsl-1" version="1.6" />
+		<haxelib name="mconsole" />
+	</dependencies>
+</project>
