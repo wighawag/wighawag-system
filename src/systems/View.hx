@@ -1,7 +1,7 @@
 package systems;
 
-import core.Entity;
-import core.SystemComponent;
+import com.wighawag.system.Entity;
+import com.wighawag.system.SystemComponent;
 import components.ViewComponent;
 import renderer.Renderer;
 

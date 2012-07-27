@@ -1,7 +1,7 @@
 package components;
 
 
-import core.EntityComponent;
+import com.wighawag.system.EntityComponent;
 class PositionComponent implements EntityComponent{
 
     public var x : Float;

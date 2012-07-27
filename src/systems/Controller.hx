@@ -1,8 +1,8 @@
 package systems;
 
-import core.SystemComponent;
+import com.wighawag.system.SystemComponent;
 import components.PositionComponent;
-import core.Entity;
+import com.wighawag.system.Entity;
 
 class Controller implements SystemComponent{
 

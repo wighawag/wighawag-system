@@ -1,4 +1,4 @@
-package core;
+package com.wighawag.system.macro;
 import haxe.macro.Expr;
 import haxe.macro.Type;
 import haxe.macro.Expr;
@@ -92,7 +92,7 @@ class SystemComponentMacro {
         }
 
         if (!modelPresent){
-            var modelProp = FProp("default", "setModel", TPath({ sub:null, name:"Model", pack:["core"], params:[]}));
+            var modelProp = FProp("default", "setModel", TPath({ sub:null, name:"Model", pack:["com","wighawag","system"], params:[]}));
             fields.push({ name : "model", doc : null, meta : null, access : [APublic], kind : modelProp, pos : pos });
         }
 
@@ -100,8 +100,8 @@ class SystemComponentMacro {
 
             fields.push(MacroHelper.createFunction(
                 "setModel",
-                [{name : "aModel", typeName : "core.Model"}],
-                "core.Model",
+                [{name : "aModel", typeName : "com.wighawag.system.Model"}],
+                "com.wighawag.system.Model",
                 "{" +
                 "model = aModel;" +
                 "model.onEntityAdded.bind(onEntityAdded);" +
@@ -116,7 +116,7 @@ class SystemComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "onEntityAdded",
-            [{name : "entity", typeName : "core.Entity"}],
+            [{name : "entity", typeName : "com.wighawag.system.Entity"}],
             "Void",
             "{" +
             "if (!_entityRegistrar.exists(entity))" +
@@ -132,7 +132,7 @@ class SystemComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "onEntityRemoved",
-            [{name : "entity", typeName : "core.Entity"}],
+            [{name : "entity", typeName : "com.wighawag.system.Entity"}],
             "Void",
             "{" +
             "if (_entityRegistrar.exists(entity))" +
@@ -146,7 +146,7 @@ class SystemComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "hasRequiredComponents",
-            [{name : "entity", typeName : "core.ComponentOwner"}],
+            [{name : "entity", typeName : "com.wighawag.system.ComponentOwner"}],
             "Bool",
             "{" +
             "for (requiredComponent in _requiredEntityComponents){"+
@@ -160,7 +160,7 @@ class SystemComponentMacro {
 
 
         var registeredEntitiesProp = FieldType.FProp("default", "null", TPath({ sub:null, name:"Array", pack:[], params:[
-            TPType(TPath({ sub:null, name:"Entity", pack:["core"], params:[] }))
+            TPType(TPath({ sub:null, name:"Entity", pack:["com","wighawag","system"], params:[] }))
         ]}));
         fields.push({ name : "registeredEntities", doc : null, meta : null, access : [APublic], kind : registeredEntitiesProp, pos : pos });
 
@@ -174,7 +174,7 @@ class SystemComponentMacro {
 
 
         var entityRegistrarVar = FieldType.FVar(TPath({ sub:null, name:"ObjectHash", pack:["com", "fermmtools", "utils"], params:[
-            TPType(TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[] })),
+            TPType(TPath({ sub:null, name:"ComponentOwner", pack:["com","wighawag","system"], params:[] })),
             TPType(TPath({ sub:null, name:"Bool", pack:[], params:[] }))
         ]}));
         fields.push({ name : "_entityRegistrar", doc : null, meta : null, access : [APrivate], kind : entityRegistrarVar, pos : pos });

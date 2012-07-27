@@ -1,8 +1,8 @@
-package core;
+package com.wighawag.system;
 
-import core.Component;
+import com.wighawag.system.Component;
 import com.fermmtools.utils.ObjectHash;
-import core.Component;
+import com.wighawag.system.Component;
 
 class ComponentOwner{
     private var _components : ObjectHash<Dynamic, Dynamic>;

@@ -1,5 +1,5 @@
 package systems;
-import core.ModelComponent;
+import com.wighawag.system.ModelComponent;
 
 class BackgroundComponent implements ModelComponent {
     public function new() {

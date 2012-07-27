@@ -4,7 +4,7 @@ import systems.Controller;
 import systems.BackgroundComponent;
 import systems.AISystem;
 import systems.RandomEntityCreation;
-import core.Model;
+import com.wighawag.system.Model;
 import renderer.Renderer;
 import systems.View;
 import nme.display.Shape;

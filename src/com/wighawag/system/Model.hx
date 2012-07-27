@@ -1,4 +1,4 @@
-package core;
+package com.wighawag.system;
 
 import hsl.haxe.Signaler;
 import hsl.haxe.DirectSignaler;

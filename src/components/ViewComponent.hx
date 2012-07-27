@@ -1,6 +1,6 @@
 package components;
 
-import core.EntityComponent;
+import com.wighawag.system.EntityComponent;
 import renderer.Renderer;
 
 @accessClass

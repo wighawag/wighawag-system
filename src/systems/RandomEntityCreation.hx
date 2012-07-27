@@ -1,11 +1,11 @@
 package systems;
-import core.SystemComponent;
+import com.wighawag.system.SystemComponent;
 import test.components.TestComponent;
 import components.AnotherViewComponent;
 import components.AIComponent;
-import core.Model;
-import core.Entity;
-import core.ComponentOwner;
+import com.wighawag.system.Model;
+import com.wighawag.system.Entity;
+import com.wighawag.system.ComponentOwner;
 import components.PositionComponent;
 import components.GenericViewComponent;
 import nme.display.BitmapData;
