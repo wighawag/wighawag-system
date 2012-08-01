@@ -9,7 +9,7 @@ class Model extends ComponentOwner{
     public var onEntityAdded : Signal1<Entity>;
     public var onEntityRemoved : Signal1<Entity>;
 
-    private var _systemComponents : Array<SystemComponent>;
+    private var _updatableComponents : Array<Updatable>;
 
     public function new(){
         super();
@@ -20,31 +20,32 @@ class Model extends ComponentOwner{
     }
 
 
-    public function setup(modelComponents : Array<ModelComponent>, systemComponents : Array<SystemComponent>) : Void{
-        _systemComponents = new Array();
+    public function setup(modelComponents : Array<ModelComponent>) : Void{
+        _updatableComponents = new Array();
         var components = new Array<Component>();
         for (modelComponent in modelComponents){
+            if (Std.is(modelComponent, Updatable)){
+                _updatableComponents.push(cast modelComponent);
+            }
             components.push(modelComponent);
             modelComponent.model = this;
         }
-        for (systemComponent in systemComponents){
-            _systemComponents.push(systemComponent);
-            components.push(systemComponent);
-            systemComponent.model = this;
-        }
+
 
         var failedComponents = initialise(components);
 
         for (failedComponent in failedComponents){
             trace("systemComponent: " + failedComponent + " failed to find its dependencies, it is disabled");
-            _systemComponents.remove(cast failedComponent);
+            if (Std.is(failedComponent, Updatable)){
+                _updatableComponents.remove(cast failedComponent);
+            }
             cast(failedComponent,ModelComponent).model = null;
         }
     }
 
     public function update(dt : Float) : Void{
-        for (systemComponent in _systemComponents){
-            systemComponent.update(dt);
+        for (component in _updatableComponents){
+            component.update(dt);
         }
     }
 

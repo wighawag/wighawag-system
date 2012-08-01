@@ -1,4 +1,5 @@
 package systems;
+import com.wighawag.system.Updatable;
 import com.wighawag.system.SystemComponent;
 import test.components.TestComponent;
 import components.AnotherViewComponent;
@@ -10,7 +11,7 @@ import components.PositionComponent;
 import components.GenericViewComponent;
 import nme.display.BitmapData;
 
-class RandomEntityCreation implements SystemComponent{
+class RandomEntityCreation implements SystemComponent, implements Updatable{
 
     private var width : Int;
     private var height : Int;

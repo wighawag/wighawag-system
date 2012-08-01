@@ -53,7 +53,7 @@ class HasteroidMain extends Sprite{
         var controllerSystem = new Controller();
 
         model = new Model();
-        model.setup([new BackgroundComponent(), controllerSystem], [view, entityCreation, aiSystem]);
+        model.setup([new BackgroundComponent(), controllerSystem, view, entityCreation, aiSystem]);
 
         addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }

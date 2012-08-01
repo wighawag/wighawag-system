@@ -18,10 +18,6 @@ class Controller implements SystemComponent{
         trace("entity unregistered from Controller");
     }
 
-    public function update(dt : Float) : Void
-    {
-
-    }
 
 
 }
