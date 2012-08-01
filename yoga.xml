@@ -31,7 +31,7 @@
 	<config-file template="nmml.template" output="system.nmml" />
 
 	<dependencies>
-		<haxelib name="hsl-1" version="1.6" />
+		<haxelib name="msignal" version="1.0.0" />
 		<haxelib name="mconsole" />
 	</dependencies>
 </project>

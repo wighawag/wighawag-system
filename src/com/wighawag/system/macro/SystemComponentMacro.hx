@@ -104,8 +104,8 @@ class SystemComponentMacro {
                 "com.wighawag.system.Model",
                 "{" +
                 "model = aModel;" +
-                "model.onEntityAdded.bind(onEntityAdded);" +
-                "model.onEntityRemoved.bind(onEntityRemoved);" +
+                "model.onEntityAdded.add(onEntityAdded);" +
+                "model.onEntityRemoved.add(onEntityRemoved);" +
                 "for (entity in model.entities){" +
                 "onEntityAdded(entity);"  +
                 "}" +

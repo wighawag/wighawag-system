@@ -1,21 +1,21 @@
 package com.wighawag.system;
 
-import hsl.haxe.Signaler;
-import hsl.haxe.DirectSignaler;
+
+import msignal.Signal;
 
 class Model extends ComponentOwner{
 
     public var entities : Array<Entity>;
-    public var onEntityAdded : Signaler<Entity>;
-    public var onEntityRemoved : Signaler<Entity>;
+    public var onEntityAdded : Signal1<Entity>;
+    public var onEntityRemoved : Signal1<Entity>;
 
     private var _systemComponents : Array<SystemComponent>;
 
     public function new(){
         super();
         entities = new Array<Entity>();
-        onEntityAdded = new DirectSignaler<Entity>(this);
-        onEntityRemoved = new DirectSignaler<Entity>(this);
+        onEntityAdded = new Signal1();
+        onEntityRemoved = new Signal1();
 
     }
 
