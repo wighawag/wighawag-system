@@ -1,5 +1,6 @@
 package ;
 
+import systems.GateTest;
 import systems.Controller;
 import systems.BackgroundComponent;
 import systems.AISystem;
@@ -53,7 +54,7 @@ class HasteroidMain extends Sprite{
         var controllerSystem = new Controller();
 
         model = new Model();
-        model.setup([new BackgroundComponent(), controllerSystem, view, entityCreation, aiSystem]);
+        model.setup([new BackgroundComponent(), new GateTest(), controllerSystem, view, entityCreation, aiSystem]);
 
         addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
