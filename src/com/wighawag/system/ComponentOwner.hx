@@ -35,7 +35,7 @@ class ComponentOwner{
                         dependenciesFound = false;
                         components.push(component); // add back to the end of the list
                         if (componentWithMissingDependencies == component && lengthAtThatpoint == components.length){
-                            trace("Could not resolved dependencies for " + components);
+                            Report.aWarning(Channels.SYSTEM, "Could not resolved dependencies for ", [components]);
                             return components;
                         }
                         if (componentWithMissingDependencies == null){

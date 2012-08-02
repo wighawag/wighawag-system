@@ -33,5 +33,7 @@
 	<dependencies>
 		<haxelib name="msignal" version="1.0.0" />
 		<haxelib name="mconsole" />
+
+        <repository id="com.wighawag.report.Report" version="0.0.1" />
 	</dependencies>
 </project>

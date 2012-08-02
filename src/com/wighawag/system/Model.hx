@@ -48,7 +48,7 @@ class Model extends ComponentOwner{
         var failedComponents = initialise(components);
 
         for (failedComponent in failedComponents){
-            trace("systemComponent: " + failedComponent + " failed to find its dependencies, it is disabled");
+            Report.aWarning(Channels.SYSTEM, "systemComponent failed to find its dependencies, it is disabled ", failedComponent);
             if (Std.is(failedComponent, Updatable)){
                 _updatableComponents.remove(cast failedComponent);
             }

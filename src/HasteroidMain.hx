@@ -32,9 +32,6 @@ class HasteroidMain extends Sprite{
 
         Console.start();
 
-
-// throw an exception :        Console.assert(false, "false");
-        trace("log" , "test");
     }
 
     public function new() {
@@ -54,7 +51,7 @@ class HasteroidMain extends Sprite{
         var controllerSystem = new Controller();
 
         model = new Model();
-        model.setup([new BackgroundComponent(), new GateTest(), controllerSystem, view, entityCreation, aiSystem]);
+        model.setup([new BackgroundComponent(), /*new GateTest(),*/ controllerSystem, view, entityCreation, aiSystem]);
 
         addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }

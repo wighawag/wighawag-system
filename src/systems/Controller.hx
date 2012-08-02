@@ -1,5 +1,6 @@
 package systems;
 
+import com.wighawag.system.Channels;
 import com.wighawag.system.SystemComponent;
 import components.PositionComponent;
 import com.wighawag.system.Entity;
@@ -11,11 +12,11 @@ class Controller implements SystemComponent{
     }
 
     public function onEntityRegistered(entity : Entity) : Void{
-        trace("entity registered with Controller");
+        Report.aDebugInfo(Channels.SYSTEM, "entity registered with Controller", entity);
     }
 
     public function onEntityUnregistered(entity : Entity) : Void{
-        trace("entity unregistered from Controller");
+        Report.aDebugInfo(Channels.SYSTEM, "entity unregistered with Controller", entity);
     }
 
 
