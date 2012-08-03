@@ -15,6 +15,15 @@ class ComponentOwner{
         return _components.get(componentClass);
     }
 
+    public function has(componentClasses : Array<Class<Dynamic>>) : Bool {
+        for (componentClass in componentClasses){
+            if (get(componentClass) == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private function initialise(components : Array<Component>) : Array<Component>{
         components = components.copy();
 
