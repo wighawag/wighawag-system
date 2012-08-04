@@ -1,6 +1,6 @@
 package test.components;
 
-import core.EntityComponent;
+import com.wighawag.system.EntityComponent;
 
 class TestComponent implements EntityComponent{
 

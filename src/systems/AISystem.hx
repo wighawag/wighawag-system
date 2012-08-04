@@ -1,14 +1,22 @@
 package systems;
-import core.SystemComponent;
-import core.Model;
-import core.ComponentOwner;
-import components.PositionComponent;
+
+import com.wighawag.system.Updatable;
+import com.wighawag.system.Entity;
+import com.wighawag.system.SystemComponent;
 import components.AIComponent;
 
 @entities(['components.AIComponent'])
-class AISystem implements SystemComponent{
+class AISystem implements SystemComponent, implements Updatable{
 
     public function new() {
+    }
+
+    public function onEntityRegistered(entity : Entity) : Void{
+
+    }
+
+    public function onEntityUnregistered(entity : Entity) : Void{
+
     }
 
     public function update(dt : Float) : Void{

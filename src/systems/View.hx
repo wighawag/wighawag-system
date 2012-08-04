@@ -1,15 +1,13 @@
 package systems;
 
-import core.SystemComponent;
+import com.wighawag.system.Updatable;
+import com.wighawag.system.Entity;
+import com.wighawag.system.SystemComponent;
 import components.ViewComponent;
 import renderer.Renderer;
-import core.Model;
-import core.ComponentOwner;
-import components.PositionComponent;
-import components.GenericViewComponent;
 
 @entities(['components.ViewComponent', 'components.PositionComponent'])
-class View implements SystemComponent{
+class View implements SystemComponent, implements Updatable{
 
     @owner
     private var backgroundComponent : BackgroundComponent;
@@ -18,6 +16,14 @@ class View implements SystemComponent{
 
     public function new(renderer : Renderer) {
         _renderer = renderer;
+    }
+
+    public function onEntityRegistered(entity : Entity) : Void{
+
+    }
+
+    public function onEntityUnregistered(entity : Entity) : Void{
+
     }
 
     public function update(dt : Float) : Void

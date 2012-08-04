@@ -1,8 +1,8 @@
-package core;
+package com.wighawag.system;
 
-import core.Component;
+import com.wighawag.system.Component;
 import com.fermmtools.utils.ObjectHash;
-import core.Component;
+import com.wighawag.system.Component;
 
 class ComponentOwner{
     private var _components : ObjectHash<Dynamic, Dynamic>;
@@ -13,6 +13,15 @@ class ComponentOwner{
 
     public function get<T : Component>(componentClass : Class<T>) : T {
         return _components.get(componentClass);
+    }
+
+    public function has(componentClasses : Array<Class<Dynamic>>) : Bool {
+        for (componentClass in componentClasses){
+            if (get(componentClass) == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     private function initialise(components : Array<Component>) : Array<Component>{
@@ -35,7 +44,7 @@ class ComponentOwner{
                         dependenciesFound = false;
                         components.push(component); // add back to the end of the list
                         if (componentWithMissingDependencies == component && lengthAtThatpoint == components.length){
-                            trace("Could not resolved dependencies for " + components);
+                            Report.aWarning(Channels.SYSTEM, "Could not resolved dependencies for ", [components]);
                             return components;
                         }
                         if (componentWithMissingDependencies == null){

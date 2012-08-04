@@ -1,4 +1,4 @@
-package core;
+package com.wighawag.system;
 
 class Entity extends ComponentOwner{
     public function new() {

@@ -1,4 +1,4 @@
-package core;
+package com.wighawag.system.macro;
 
 import haxe.macro.Type;
 import haxe.macro.Expr;
@@ -165,7 +165,7 @@ class ComponentInterdependencyMacro {
         ]}),
         params : [],
         expr : attachExpr,
-        args : [{value : null, type : TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[] }), opt : false, name :"componentOwner"}] };
+        args : [{value : null, type : TPath({ sub:null, name:"ComponentOwner", pack:["com","wighawag","system"], params:[] }), opt : false, name :"componentOwner"}] };
 
         fields.push({ name : "attach", doc : null, meta : null, access : [APublic], kind : FFun(attachFunction), pos : pos });
 
@@ -180,7 +180,7 @@ class ComponentInterdependencyMacro {
         fields.push({ name : "detach", doc : null, meta : null, access : [APublic], kind : FFun(detachFunction), pos : pos });
 
 
-        var ownerProp = FProp("default", "null", TPath({ sub:null, name:"ComponentOwner", pack:["core"], params:[]}));
+        var ownerProp = FProp("default", "null", TPath({ sub:null, name:"ComponentOwner", pack:["com","wighawag","system"], params:[]}));
         fields.push({ name : "owner", doc : null, meta : null, access : [APublic], kind : ownerProp, pos : pos });
 
 
