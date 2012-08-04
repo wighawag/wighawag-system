@@ -3,3 +3,12 @@
 *.build
 target/
 *.hxproj
+.munit
+compile_cpp.hxml
+compile_js.hxml
+compile_swf.hxml
+system.nmml
+test.hxml
+test/TestMain.hx
+test/TestSuite.hx
+test/ExampleTest.hx
