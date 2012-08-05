@@ -5,7 +5,11 @@ using StringTools;
 class MacroHelper {
 
 
-    public static function createFunction(name : String, args : Array<{name : String, typeName : String}>, returnType : String, exprString : String) : Field {
+    public static function createFunction(name : String, args : Array<{name : String, typeName : String}>, returnType : String, exprString : String, ?access : Array<Access>) : Field {
+        if (access == null){
+            access = [APrivate];
+        }
+
         var context = haxe.macro.Context;
         var pos = context.currentPos();
         var expr = context.parse(exprString, pos);
@@ -21,7 +25,7 @@ class MacroHelper {
         expr : expr,
         args : argsArray
         };
-        return { name : name, doc : null, meta : null, access : [APrivate], kind : FFun(func), pos : pos };
+        return { name : name, doc : null, meta : null, access : access, kind : FFun(func), pos : pos };
 
 
     }

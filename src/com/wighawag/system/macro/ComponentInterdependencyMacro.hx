@@ -3,10 +3,6 @@ package com.wighawag.system.macro;
 import haxe.macro.Type;
 import haxe.macro.Expr;
 
-typedef ComponentField = {
-    var fieldName : String;
-    var typeName : String;
-}
 
 class ComponentInterdependencyMacro {
     @:macro public static function build() : Array<Field> {
