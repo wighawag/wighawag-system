@@ -10,4 +10,9 @@ class TestComponent implements EntityComponent{
     public function new() {
     }
 
+
+    public function initialise():Void{
+
+    }
+
 }

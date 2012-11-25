@@ -8,4 +8,8 @@ class TestTypeComponent implements EntityTypeComponent{
         this.testMessage = message;
     }
 
+    public function initialise():Void{
+
+    }
+
 }

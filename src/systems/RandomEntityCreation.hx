@@ -24,6 +24,10 @@ class RandomEntityCreation implements SystemComponent, implements Updatable{
         this.n = 0;
     }
 
+    public function initialise():Void{
+
+    }
+
     public function onEntityRegistered(entity : Entity) : Void{
 
     }

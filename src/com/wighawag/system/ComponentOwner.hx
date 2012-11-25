@@ -59,6 +59,7 @@ class ComponentOwner{
             if (dependenciesFound){
                 componentWithMissingDependencies = null;
                 var accessClass = add(component);
+                component.initialise();
                 componentsAdded.set(accessClass, true);
             }
         }

@@ -11,6 +11,10 @@ class Controller implements SystemComponent{
 
     }
 
+    public function initialise():Void{
+
+    }
+
     public function onEntityRegistered(entity : Entity) : Void{
         Report.aDebugInfo(Channels.SYSTEM, "entity registered with Controller", entity);
     }

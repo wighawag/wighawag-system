@@ -7,6 +7,10 @@ class GateTest implements SystemComponent, implements InGate, implements OutGate
     public function new() {
     }
 
+    public function initialise():Void{
+
+    }
+
     public function onEntityRegistered(entity:Entity):Void {
     }
 

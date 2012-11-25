@@ -12,6 +12,10 @@ class GenericViewComponent implements ViewComponent{
         this.bitmapData = bitmapData;
     }
 
+    public function initialise():Void{
+
+    }
+
     public function draw(renderer:Renderer):Void {
         renderer.draw(bitmapData, Std.int(positionComponent.x), Std.int(positionComponent.y));
     }

@@ -26,4 +26,8 @@ class AISystem implements SystemComponent, implements Updatable{
          }
     }
 
+    public function initialise():Void{
+
+    }
+
 }

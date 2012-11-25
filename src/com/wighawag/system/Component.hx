@@ -12,4 +12,6 @@ interface Component {
     public function detach() : Void;
     public function attach(componentOwner : ComponentOwner) : Class<Dynamic>;
 
+    public function initialise() : Void;
+
 }

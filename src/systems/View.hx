@@ -18,6 +18,10 @@ class View implements SystemComponent, implements Updatable{
         _renderer = renderer;
     }
 
+    public function initialise():Void{
+
+    }
+
     public function onEntityRegistered(entity : Entity) : Void{
 
     }

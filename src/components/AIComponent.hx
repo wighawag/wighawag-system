@@ -10,6 +10,10 @@ class AIComponent implements EntityComponent {
     public function new() {
     }
 
+    public function initialise():Void{
+
+    }
+
     public function update(dt : Float) : Void{
         positionComponent.x += 10;
         if (positionComponent.x > 200){
