@@ -1,4 +1,5 @@
 package typecomponents;
+import com.wighawag.system.EntityComponent;
 import com.wighawag.system.EntityTypeComponent;
 class TestTypeComponent implements EntityTypeComponent{
 
@@ -9,6 +10,10 @@ class TestTypeComponent implements EntityTypeComponent{
     }
 
     public function initialise():Void{
+
+    }
+
+    public function populateEntity(entityComponents : Array<EntityComponent>) : Void{
 
     }
 

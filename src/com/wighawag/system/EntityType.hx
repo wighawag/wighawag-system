@@ -16,4 +16,17 @@ class EntityType extends ComponentOwner{
         }
         initialise(components);
     }
+
+    public function createEntity(entityComponents : Array<EntityComponent>) : Entity{
+
+        entityComponents = entityComponents.copy(); //TODO remove safety copy ?
+        for (componentKey in _components){
+            var component = _components.get(componentKey); // TODO investigate why I get error when using _components.values()
+            component.populateEntity(entityComponents);
+        }
+        var entity = new Entity();
+        entity.setup(entityComponents, this);
+        return entity;
+
+    }
 }
