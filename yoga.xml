@@ -4,7 +4,8 @@
 	<compiler-version>2.10</compiler-version>
 	
 	<id>com.wighawag.system</id>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.1.1</version>
+	<prepared>2013-02-23 20:22:52</prepared>
 
 	<main>HasteroidMain</main>
 	
@@ -32,7 +33,7 @@
 
 	<dependencies>
 		<haxelib name="msignal" version="1.0.0" />
-		<repository id="com.wighawag.utils" version="0.1.1-SNAPSHOT" />
-        	<repository id="com.wighawag.report.Report" version="0.1.1-SNAPSHOT" />
+		<repository id="com.wighawag.utils" version="0.1.1" />
+        	<repository id="com.wighawag.report.Report" version="0.1.1" />
 	</dependencies>
 </project>
