@@ -1,9 +1,9 @@
-package com.wighawag.system;
+package wighawag.system;
 
 import haxe.rtti.Meta;
-import com.wighawag.system.ComponentOwner;
+import wighawag.system.ComponentOwner;
 
-@:autoBuild(com.wighawag.system.macro.ComponentInterdependencyMacro.build())
+@:autoBuild(wighawag.system.macro.ComponentInterdependencyMacro.build())
 interface Component {
 
     public var owner(default, null) : ComponentOwner;

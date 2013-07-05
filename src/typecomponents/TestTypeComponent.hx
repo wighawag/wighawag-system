@@ -1,6 +1,6 @@
 package typecomponents;
-import com.wighawag.system.EntityComponent;
-import com.wighawag.system.EntityTypeComponent;
+import wighawag.system.EntityComponent;
+import wighawag.system.EntityTypeComponent;
 class TestTypeComponent implements EntityTypeComponent{
 
     public var testMessage : String;

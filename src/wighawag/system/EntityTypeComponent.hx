@@ -1,5 +1,5 @@
-package com.wighawag.system;
+package wighawag.system;
 
-interface EntityTypeComponent implements Component {
+interface EntityTypeComponent extends Component {
     public function populateEntity(entityComponents : Array<EntityComponent>) : Void;
 }

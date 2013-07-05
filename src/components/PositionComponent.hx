@@ -2,11 +2,11 @@ package components;
 
 
 import typecomponents.TestTypeComponent;
-import com.wighawag.system.EntityComponent;
+import wighawag.system.EntityComponent;
 class PositionComponent implements EntityComponent{
 
-    @entityType
-    private var typeComponent : TestTypeComponent;
+    //@entityType
+    //private var typeComponent : TestTypeComponent;
 
     public var x : Float;
     public var y : Float;

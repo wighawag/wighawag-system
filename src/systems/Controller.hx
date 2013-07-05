@@ -1,9 +1,9 @@
 package systems;
 
-import com.wighawag.system.Channels;
-import com.wighawag.system.SystemComponent;
+import wighawag.system.Channels;
+import wighawag.system.SystemComponent;
 import components.PositionComponent;
-import com.wighawag.system.Entity;
+import wighawag.system.Entity;
 
 class Controller implements SystemComponent{
 

@@ -1,17 +1,17 @@
 package systems;
-import com.wighawag.system.Updatable;
-import com.wighawag.system.SystemComponent;
+import wighawag.system.Updatable;
+import wighawag.system.SystemComponent;
 import test.components.TestComponent;
 import components.AnotherViewComponent;
 import components.AIComponent;
-import com.wighawag.system.Model;
-import com.wighawag.system.Entity;
-import com.wighawag.system.ComponentOwner;
+import wighawag.system.Model;
+import wighawag.system.Entity;
+import wighawag.system.ComponentOwner;
 import components.PositionComponent;
 import components.GenericViewComponent;
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 
-class RandomEntityCreation implements SystemComponent, implements Updatable{
+class RandomEntityCreation implements SystemComponent implements Updatable{
 
     private var width : Int;
     private var height : Int;

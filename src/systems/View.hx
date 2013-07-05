@@ -1,13 +1,13 @@
 package systems;
 
-import com.wighawag.system.Updatable;
-import com.wighawag.system.Entity;
-import com.wighawag.system.SystemComponent;
+import wighawag.system.Updatable;
+import wighawag.system.Entity;
+import wighawag.system.SystemComponent;
 import components.ViewComponent;
 import renderer.Renderer;
 
 @entities(['components.ViewComponent', 'components.PositionComponent'])
-class View implements SystemComponent, implements Updatable{
+class View implements SystemComponent implements Updatable{
 
     @owner
     private var backgroundComponent : BackgroundComponent;

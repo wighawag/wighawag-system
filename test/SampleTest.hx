@@ -1,8 +1,8 @@
 package;
 
-import com.wighawag.system.EntityType;
-import com.wighawag.system.Entity;
-import com.wighawag.system.Model;
+import wighawag.system.EntityType;
+import wighawag.system.Entity;
+import wighawag.system.Model;
 import massive.munit.util.Timer;
 import massive.munit.Assert;
 import massive.munit.async.AsyncFactory;
@@ -12,7 +12,7 @@ import massive.munit.async.AsyncFactory;
 * This is an example test class can be used as a template for writing normal and async tests 
 * Refer to munit command line tool for more information (haxelib run munit)
 */
-class ExampleTest 
+class SampleTest 
 {
 	private var timer:Timer;
 	

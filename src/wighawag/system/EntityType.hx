@@ -1,4 +1,4 @@
-package com.wighawag.system;
+package wighawag.system;
 
 class EntityType extends ComponentOwner{
 

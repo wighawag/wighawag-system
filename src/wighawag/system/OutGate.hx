@@ -1,4 +1,4 @@
-package com.wighawag.system;
+package wighawag.system;
 interface OutGate {
     function canRemove(entity : Entity) : Bool;
 }

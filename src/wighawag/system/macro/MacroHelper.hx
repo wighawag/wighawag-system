@@ -1,4 +1,4 @@
-package com.wighawag.system.macro;
+package wighawag.system.macro;
 import haxe.macro.Expr;
 using StringTools;
 

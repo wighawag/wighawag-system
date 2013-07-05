@@ -1,8 +1,8 @@
-package com.wighawag.system;
+package wighawag.system;
 
-import com.wighawag.system.Component;
+import wighawag.system.Component;
+import wighawag.system.Component;
 import com.fermmtools.utils.ObjectHash;
-import com.wighawag.system.Component;
 
 class ComponentOwner{
     private var _components : ObjectHash<Dynamic, Dynamic>;
@@ -31,7 +31,7 @@ class ComponentOwner{
         var lengthAtThatpoint = 0;
 
 
-        var componentsAdded = new ObjectHash<Class<Dynamic>, Bool>();
+        var componentsAdded = new ObjectHash<Class<Dynamic>, Dynamic>();
         for (componentClass in _components){
             componentsAdded.set(componentClass, true);
         }

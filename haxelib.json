@@ -1,0 +1,12 @@
+{
+  "name": "wighawag-system",
+  "url" : "https://github.wighawag/wighawag-system/",
+  "license": "Wighawag",
+  "tags": ["cross"],
+  "description": "",
+  "version": "0.0.1",
+  "releasenote": "",
+  "contributors": ["wighawag"],
+  "classPaths" : ["src"],
+  "dependencies": {"wighawag-report":"","msignal":"", "wighawag-utils":""}
+}

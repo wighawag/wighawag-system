@@ -1,6 +1,6 @@
 package components;
 import renderer.Renderer;
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 class GenericViewComponent implements ViewComponent{
 
     @owner

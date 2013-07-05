@@ -1,6 +1,6 @@
 package components;
 
-import com.wighawag.system.EntityComponent;
+import wighawag.system.EntityComponent;
 
 class AIComponent implements EntityComponent {
 

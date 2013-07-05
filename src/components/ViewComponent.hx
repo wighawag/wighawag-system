@@ -1,9 +1,9 @@
 package components;
 
-import com.wighawag.system.EntityComponent;
+import wighawag.system.EntityComponent;
 import renderer.Renderer;
 
 @accessClass
-interface ViewComponent implements EntityComponent {
+interface ViewComponent extends EntityComponent {
     public function draw(renderer:Renderer):Void;
 }

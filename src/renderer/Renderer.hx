@@ -1,10 +1,10 @@
 package renderer;
 
-import nme.geom.Point;
-import nme.geom.Rectangle;
-import nme.display.Bitmap;
-import nme.display.BitmapData;
-import nme.display.Sprite;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.Sprite;
 
 class Renderer {
 

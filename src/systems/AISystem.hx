@@ -1,12 +1,12 @@
 package systems;
 
-import com.wighawag.system.Updatable;
-import com.wighawag.system.Entity;
-import com.wighawag.system.SystemComponent;
+import wighawag.system.Updatable;
+import wighawag.system.Entity;
+import wighawag.system.SystemComponent;
 import components.AIComponent;
 
 @entities(['components.AIComponent'])
-class AISystem implements SystemComponent, implements Updatable{
+class AISystem implements SystemComponent implements Updatable{
 
     public function new() {
     }

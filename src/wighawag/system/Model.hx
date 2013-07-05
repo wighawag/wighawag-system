@@ -1,13 +1,11 @@
-package com.wighawag.system;
+package wighawag.system;
 
-
-import com.fermmtools.utils.ObjectHash;
 import msignal.Signal;
 
 class Model extends ComponentOwner{
 
     public var entities : Array<Entity>;
-    private var entitiesSet : ObjectHash<Entity, Bool>;
+    private var entitiesSet : Map<Entity, Bool>;
 
     public var onEntityAdded : Signal1<Entity>;
     public var onEntityRemoved : Signal1<Entity>;
@@ -19,7 +17,7 @@ class Model extends ComponentOwner{
     public function new(){
         super();
         entities = new Array<Entity>();
-        entitiesSet = new ObjectHash();
+        entitiesSet = new Map();
         onEntityAdded = new Signal1();
         onEntityRemoved = new Signal1();
 
@@ -105,7 +103,7 @@ class Model extends ComponentOwner{
         if (!checkGate || canRemove(entity)){
             var removed : Bool = entities.remove(entity);
             if (removed){
-                entitiesSet.delete(entity);
+                entitiesSet.remove(entity);
                 onEntityRemoved.dispatch(entity);
                 return true;
             }

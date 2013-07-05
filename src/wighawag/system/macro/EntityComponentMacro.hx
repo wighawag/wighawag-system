@@ -1,4 +1,4 @@
-package com.wighawag.system.macro;
+package wighawag.system.macro;
 import haxe.macro.Expr;
 
 
@@ -73,7 +73,7 @@ class EntityComponentMacro {
         // add the required components to the requiredComponents instance field so that the ComponentOwner can check teh dependencies
         addRequiredComponents(constructorExprs, requiredFields);
 
-        var entityProp = FProp("default", "null", TPath({ sub:null, name:"Entity", pack:["com","wighawag","system"], params:[]}));
+        var entityProp = FProp("default", "null", TPath({ sub:null, name:"Entity", pack:["wighawag","system"], params:[]}));
         fields.push({ name : "entity", doc : null, meta : null, access : [APublic], kind : entityProp, pos : pos });
 
 
@@ -102,7 +102,7 @@ class EntityComponentMacro {
 
         fields.push(MacroHelper.createFunction(
             "attachEntity",
-            [{name : "anEntity", typeName : "com.wighawag.system.Entity"}],
+            [{name : "anEntity", typeName : "wighawag.system.Entity"}],
             "Bool",
             exprString,
             [APublic]

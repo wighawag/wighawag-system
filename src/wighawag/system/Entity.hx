@@ -1,4 +1,4 @@
-package com.wighawag.system;
+package wighawag.system;
 
 import typecomponents.TestTypeComponent;
 class Entity extends ComponentOwner{

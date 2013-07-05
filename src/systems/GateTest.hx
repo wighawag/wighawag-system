@@ -1,9 +1,9 @@
 package systems;
-import com.wighawag.system.Entity;
-import com.wighawag.system.InGate;
-import com.wighawag.system.OutGate;
-import com.wighawag.system.SystemComponent;
-class GateTest implements SystemComponent, implements InGate, implements OutGate{
+import wighawag.system.Entity;
+import wighawag.system.InGate;
+import wighawag.system.OutGate;
+import wighawag.system.SystemComponent;
+class GateTest implements SystemComponent implements InGate implements OutGate{
     public function new() {
     }
 

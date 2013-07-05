@@ -1,4 +1,4 @@
-package com.wighawag.system.macro;
+package wighawag.system.macro;
 import haxe.macro.Expr;
 class ModelComponentMacro {
     @:macro public static function build() : Array<Field> {
@@ -20,7 +20,7 @@ class ModelComponentMacro {
         var setModelPresent = false;
         var modelPresent = false;
         for (field in fields){
-            if (field.name == "setModel"){
+            if (field.name == "set_model"){
                 setModelPresent = true;
             }
             if (field.name == "model"){
@@ -29,15 +29,15 @@ class ModelComponentMacro {
         }
 
         if (!modelPresent){
-            var modelProp = FProp("default", "setModel", TPath({ sub:null, name:"Model", pack:["com","wighawag","system"], params:[]}));
+            var modelProp = FProp("default", "set", TPath({ sub:null, name:"Model", pack:["wighawag","system"], params:[]}));
             fields.push({ name : "model", doc : null, meta : null, access : [APublic], kind : modelProp, pos : pos });
         }
 
         if(!setModelPresent){
             fields.push(MacroHelper.createFunction(
-                "setModel",
-                [{name : "aModel", typeName : "com.wighawag.system.Model"}],
-                "com.wighawag.system.Model",
+                "set_model",
+                [{name : "aModel", typeName : "wighawag.system.Model"}],
+                "wighawag.system.Model",
                 "{" +
                 "model = aModel;" +
                 "return model;" +
