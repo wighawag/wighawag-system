@@ -7,6 +7,6 @@
   "version": "0.0.1",
   "releasenote": "",
   "contributors": ["wighawag"],
-  "classPaths" : ["src"],
-  "dependencies": {"wighawag-report":"","msignal":"", "wighawag-utils":""}
+  "classPath" : "src",
+  "dependencies": {"wighawag-report":"","msignal":"", "wighawag-utils":"0.0.1"}
 }

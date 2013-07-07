@@ -1,3 +1,11 @@
+/****
+* Wighawag License:
+* - free to use for commercial and non commercial application
+* - provided the modification done to it are given back to the community
+* - use at your own risk
+* 
+****/
+
 package wighawag.system.macro;
 import haxe.macro.Expr;
 import haxe.macro.Type;
