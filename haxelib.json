@@ -1,12 +1,12 @@
 {
   "name": "wighawag-system",
   "url" : "https://github.wighawag/wighawag-system/",
-  "license": "Wighawag",
+  "license": "GPL",
   "tags": ["cross"],
-  "description": "",
+  "description": "Entity Component System",
   "version": "0.0.1",
   "releasenote": "",
   "contributors": ["wighawag"],
   "classPath" : "src",
-  "dependencies": {"wighawag-report":"","msignal":"", "wighawag-utils":"0.0.1"}
+  "dependencies": {"wighawag-report":"0.0.1","msignal":"1.2.1", "wighawag-utils":"0.0.1"}
 }
