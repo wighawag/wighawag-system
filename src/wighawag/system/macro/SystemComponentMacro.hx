@@ -8,8 +8,7 @@
 
 package wighawag.system.macro;
 import haxe.macro.Expr;
-import haxe.macro.Type;
-import haxe.macro.Expr;
+
 class SystemComponentMacro {
     @:macro public static function build() : Array<Field> {
         var context = haxe.macro.Context;
